@@ -37,7 +37,7 @@ public class Main {
 	public static int numPresident = 0;
 	public static int numVicePresident = 0;
 	public static int numSenator = 0;
-	public static int numRepresentative = 0;
+	public static int numDistrictRepresentative = 0;
 	public static int numGovernor = 0;
 	public static int numMayor = 0;
 	public static int numVoter = 0;
@@ -51,6 +51,7 @@ public class Main {
 	public static JButton cancelButton;
 	public static JLabel success;
 	public static JLabel label;
+	private static String[][] VPdata;
 
 	public static void main(String[] args) {
 
@@ -61,26 +62,7 @@ public class Main {
 
 	}
 
-	// SuperUser
-	public static void addOfficer() {
-	}
-
-	public static void addVoter() {
-	}
-
-	public static void editUser() {
-	}
-
-	public static void removeUser() {
-	}
-
-	public static void displayUser() // Should display all users and will be used mostly by
-	{
-	}
-
 	// Officer
-	public static void addCandidate() {
-	}
 
 	public static void editCandidate() {
 	}
@@ -104,7 +86,7 @@ public class Main {
 		// candidates.
 		// Again stated above is the maximum number of candidates per position.
 
-		if (numPresident == 3 && numVicePresident == 3 && numSenator == 10 && numRepresentative == 10
+		if (numPresident == 3 && numVicePresident == 3 && numSenator == 10 && numDistrictRepresentative == 10
 				&& numGovernor == 3 && numMayor == 3) {
 			return true;
 		} else {
@@ -118,7 +100,7 @@ public class Main {
 
 	public static void addDummy() {
 		users.add(new Superuser("Superuser", "a", "a"));
-		users.add(new Officer("Officer", "officer", "officer"));
+		users.add(new Officer("Officer", "b", "b"));
 		users.add(new Voter("Voter", "voter", "voter"));
 	}
 
@@ -584,7 +566,7 @@ public class Main {
 		displayCandidateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// display display candidate form
-				displayCandidate();
+				DisplayCandidateGUI();
 			}
 		});
 
@@ -604,6 +586,306 @@ public class Main {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
+
+	// Time for Officer Menu Methods
+	// Again the Candidate class is the super class for the President, Vice
+	// President, and etc. classes
+	// The Candidates class has the following attributes: name, votes (int), and
+	// position (String)
+	// The Candidates class has the following methods: getName(), getVotes(),
+	// getPosition(), setName(String), setVotes(int), setPosition(String)
+	// The Officer class or user can add, edit, and remove candidates.
+
+	public static void addCandidate() {
+		frame = new JFrame("Add Candidate");
+		frame.setSize(300, 150);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLayout(new GridLayout(3, 2));
+
+		// Would it be better to make the position a drop down list? and then use a
+		// switch statement to create the object? answer: yes
+
+		JLabel nameLabel = new JLabel("Name:");
+		JTextField nameText = new JTextField(20);
+		// President, Vice President, Senators, District Representatives, Governors, and
+		// Mayors.
+		String[] positions = { "President", "Vice President", "Senator", "District Representative", "Governor",
+				"Mayor" };
+		JComboBox positionList = new JComboBox(positions);
+
+		JButton submitButton = new JButton("Submit");
+		JButton cancelButton = new JButton("Cancel");
+
+		submitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String name = nameText.getText();
+				String position = positionList.getSelectedItem().toString();
+
+				// check position and add the correct candidate subclass object to the
+				// candidates arraylist
+				// Limits per postion (3) President, (3) Vice President, (10) Senators, (10)
+				// District Representatives, (3) Governors, and (3) Mayors.
+				// Would it be better to show a message dialog and say the candidates
+				// information before adding it to the arraylist? answer: yes
+				switch (position) {
+				case "President":
+					if (numPresident != 3) {
+
+						int reply = JOptionPane.showConfirmDialog(null, "Name: " + name + " Position: " + position,
+								"Add Candidate?", JOptionPane.YES_NO_OPTION);
+
+						if (reply == JOptionPane.YES_OPTION) {
+							candidates.add(new President(name, position));
+							numPresident++;
+						} else {
+							frame.dispose();
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "President limit reached");
+					}
+					break;
+				case "Vice President":
+					// with int reply
+
+					if (numVicePresident != 3) {
+						int reply = JOptionPane.showConfirmDialog(null, "Name: " + name + " Position: " + position,
+								"Add Candidate?", JOptionPane.YES_NO_OPTION);
+
+						if (reply == JOptionPane.YES_OPTION) {
+							candidates.add(new VicePresident(name, position));
+							numVicePresident++;
+						} else {
+							frame.dispose();
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "Vice President limit reached");
+					}
+
+					break;
+				case "Senator":
+					if (numSenator != 10) {
+						int reply = JOptionPane.showConfirmDialog(null, "Name: " + name + " Position: " + position,
+								"Add Candidate?", JOptionPane.YES_NO_OPTION);
+
+						if (reply == JOptionPane.YES_OPTION) {
+							candidates.add(new Senators(name, position));
+							numSenator++;
+						} else {
+							frame.dispose();
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "Senator limit reached");
+					}
+					break;
+				case "District Representative":
+					if (numDistrictRepresentative != 10) {
+						int reply = JOptionPane.showConfirmDialog(null, "Name: " + name + " Position: " + position,
+								"Add Candidate?", JOptionPane.YES_NO_OPTION);
+
+						if (reply == JOptionPane.YES_OPTION) {
+							candidates.add(new DistrictRepresentatives(name, position));
+							numDistrictRepresentative++;
+						} else {
+							frame.dispose();
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "District Representative limit reached");
+					}
+					break;
+				case "Governor":
+					if (numGovernor != 3) {
+						int reply = JOptionPane.showConfirmDialog(null, "Name: " + name + " Position: " + position,
+								"Add Candidate?", JOptionPane.YES_NO_OPTION);
+
+						if (reply == JOptionPane.YES_OPTION) {
+							candidates.add(new Governer(name, position));
+							numGovernor++;
+						} else {
+							frame.dispose();
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "Governor limit reached");
+					}
+					break;
+				case "Mayor":
+					if (numMayor != 3) {
+						int reply = JOptionPane.showConfirmDialog(null, "Name: " + name + " Position: " + position,
+								"Add Candidate?", JOptionPane.YES_NO_OPTION);
+
+						if (reply == JOptionPane.YES_OPTION) {
+							candidates.add(new Mayor(name, position));
+							numMayor++;
+						} else {
+							frame.dispose();
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "Mayor limit reached");
+					}
+					break;
+				}
+
+				frame.dispose();
+			}
+		});
+
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+			}
+		});
+
+		frame.add(nameLabel);
+		frame.add(nameText);
+		frame.add(positionList);
+		frame.add(submitButton);
+		frame.add(cancelButton);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+	}
+
+
+    // Display Candidate GUI
+    // There will be a big GUI table that will display all the candidates in the system.
+    // The table will have the following columns: Position, Name, Votes.
+    // The table will be sorted by position.
+
+    // Specifically from President, Vice President,  Senators, District Representatives, Governors, and  Mayors.
+    // Not necessarily sorted but grouped together. 
+
+    public static void DisplayCandidateGUI() {
+        frame = new JFrame("Display Candidate");
+        frame.setSize(500, 500);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new GridLayout(2, 1));
+
+        // create table
+        String[] columnNames = { "Position", "Name", "Votes" };
+
+        //It will use the Global candidates position counter to determine the size of the array of the specific position.
+
+        if(numPresident>0){
+            Object[][] Pdata = new Object[numPresident][3];
+            for(int i = 0; i < numPresident; i++){
+                Pdata[i][0] = candidates.get(i).getPosition();
+                Pdata[i][1] = candidates.get(i).getName();
+                Pdata[i][2] = candidates.get(i).getVotes();
+            }
+
+            // create table
+
+            JTable table = new JTable(Pdata, columnNames);
+            table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+            table.setFillsViewportHeight(true);
+        }
+
+        if(numVicePresident>0){
+            Object[][] VPdata = new Object[numVicePresident][3];
+            for(int i = 0; i < numVicePresident; i++){
+                VPdata[i][0] = candidates.get(i).getPosition();
+                VPdata[i][1] = candidates.get(i).getName();
+                VPdata[i][2] = candidates.get(i).getVotes();
+            }
+
+            // create table
+
+            JTable table = new JTable(VPdata, columnNames);
+            table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+            table.setFillsViewportHeight(true);
+        }
+
+        if(numSenator>0){
+            Object[][] Sdata = new Object[numSenator][3];
+            for(int i = 0; i < numSenator; i++){
+            	Sdata[i][0] = candidates.get(i).getPosition();
+            	Sdata[i][1] = candidates.get(i).getName();
+            	Sdata[i][2] = candidates.get(i).getVotes();
+            }
+
+            // create table
+
+            JTable table = new JTable(Sdata, columnNames);
+            table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+            table.setFillsViewportHeight(true);
+        }
+
+        if(numDistrictRepresentative>0){
+            Object[][] DRdata = new Object[numDistrictRepresentative][3];
+            for(int i = 0; i < numDistrictRepresentative; i++){
+            	DRdata[i][0] = candidates.get(i).getPosition();
+                DRdata[i][1] = candidates.get(i).getName();
+                DRdata[i][2] = candidates.get(i).getVotes();
+            }
+
+            // create table
+            
+            JTable table = new JTable(DRdata, columnNames);
+            table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+            table.setFillsViewportHeight(true);
+
+        }
+
+        if(numGovernor>0){
+            Object[][] Gdata = new Object[numGovernor][3];
+            for(int i = 0; i < numGovernor; i++){
+            	Gdata[i][0] = candidates.get(i).getPosition();
+            	Gdata[i][1] = candidates.get(i).getName();
+            	Gdata[i][2] = candidates.get(i).getVotes();
+            }
+
+            // create table
+
+            JTable table = new JTable(Gdata, columnNames);
+            table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+            table.setFillsViewportHeight(true);
+
+
+        }
+
+        if(numMayor>0){
+            Object[][] Mdata = new Object[numMayor][3];
+            for(int i = 0; i < numMayor; i++){
+            	Mdata[i][0] = candidates.get(i).getPosition();
+                Mdata[i][1] = candidates.get(i).getName();
+                Mdata[i][2] = candidates.get(i).getVotes();
+            }
+
+            // create table
+
+            JTable table = new JTable(Mdata, columnNames);
+            table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+            table.setFillsViewportHeight(true);
+
+        }
+
+        if(numPresident==0 && numVicePresident==0 && numSenator==0 && numDistrictRepresentative==0 && numGovernor==0 && numMayor==0){
+            //Just show a message that there are no candidates.
+            JOptionPane.showMessageDialog(null, "There are no candidates");
+            return;
+        }
+        //JScrollPane scrollPane = new JScrollPane(table);
+        //frame.add(scrollPane);
+
+        JButton backButton = new JButton("Back");
+        backButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+            }
+        });
+
+        frame.add(backButton);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+    
+
+
+
+
+
+
+
+
+
 
 	public static void VoterMenuGUI() {
 		frame = new JFrame("Voter Menu");
