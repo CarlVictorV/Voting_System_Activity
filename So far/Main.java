@@ -273,18 +273,35 @@ public class Main {
 				String password = passwordText.getText();
 				String userType = (String) typeList.getSelectedItem();
 
-				int reply = JOptionPane.showConfirmDialog(null,
-						"Name: " + name + " Username: " + username + " Password: " + password + " Type: " + userType,
-						"Add User?", JOptionPane.YES_NO_OPTION);
+				// I want to add a check here to see if the username already exists in the list
+				// If it does, then I want to display a message saying that the username already
+				// exists
+				// If it doesn't, then continue with the code below
 
-				if (reply == JOptionPane.YES_OPTION) {
-					if (userType.equals("Officer")) {
-						users.add(new Officer(name, username, password));
-					} else if (userType.equals("Voter")) {
-						users.add(new Voter(name, username, password));
+				boolean available = true;
+
+				for (int i = 0; i < users.size(); i++) {
+					if (users.get(i).getUserName().equals(username)) {
+						available = false;
 					}
 				}
-				frame.dispose();
+
+				if (available == false) {
+					JOptionPane.showMessageDialog(null, "Username already exists");
+				} else {
+					int reply = JOptionPane.showConfirmDialog(null, "Name: " + name + " Username: " + username
+							+ " Password: " + password + " Type: " + userType, "Add User?", JOptionPane.YES_NO_OPTION);
+
+					if (reply == JOptionPane.YES_OPTION) {
+						if (userType.equals("Officer")) {
+							users.add(new Officer(name, username, password));
+						} else if (userType.equals("Voter")) {
+							users.add(new Voter(name, username, password));
+						}
+					}
+					frame.dispose();
+				}
+
 			}
 		});
 
@@ -431,6 +448,20 @@ public class Main {
 				String password = passwordText.getText();
 				String userType = (String) typeList.getSelectedItem();
 
+				boolean usernameExists = false;
+
+				for (int i = 0; i < users.size(); i++) {
+					if (users.get(i).getUserName().equals(username)) {
+						usernameExists = true;
+					}
+				}
+
+				if (usernameExists) {
+					JOptionPane.showMessageDialog(null, "Username already exists");
+					frame.dispose();
+					return;
+				}
+
 				int reply = JOptionPane.showConfirmDialog(null,
 						"Name: " + name + " Username: " + username + " Password: " + password + " Type: " + userType,
 						"Edit User?", JOptionPane.YES_NO_OPTION);
@@ -499,7 +530,6 @@ public class Main {
 						}
 					}
 				}
-				// Add a message if the username is
 				frame.dispose();
 			}
 		});
