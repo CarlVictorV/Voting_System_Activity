@@ -1,0 +1,2 @@
+# VotingSystemActivity
+GL ALL
