@@ -141,25 +141,36 @@ public class Main {
 		passwordText = new JPasswordField(20);
 		loginButton = new JButton("Login");
 		cancelButton = new JButton("Cancel");
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
 
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String username = userText.getText();
 				String password = new String(passwordText.getPassword());
-
+				boolean valid = false;
 				for (int i = 0; i < users.size(); i++) {
 					if (users.get(i).getUserName().equals(username) && users.get(i).getPassword().equals(password)) {
 						if (users.get(i).getUserName().equals("superuser")) {
-							// display superuser menu
+							frame.dispose();
 							SuperUserMenuGUI();
 						} else if (users.get(i).getUserName().equals("officer")) {
-							// display officer menu
+							frame.dispose();
 							OfficerMenuGUI();
 						} else if (users.get(i).getUserName().equals("voter")) {
-							// display voter menu
+							frame.dispose();
 							VoterMenuGUI();
 						}
+						valid = true;
 					}
+				}
+
+				if (valid == false) {
+					JOptionPane.showMessageDialog(null, "Invalid Username or Password");
+					userText.setText("");
+					passwordText.setText("");
+				} else {
+					JOptionPane.showMessageDialog(null, "Login Successful\nWelcome " + username + "!");
 				}
 
 			}
@@ -192,6 +203,9 @@ public class Main {
 		JButton displayCandidateButton = new JButton("Display Candidate");
 		JButton logoutButton = new JButton("Logout");
 
+        frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+
 		addCandidateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// display add candidate form
@@ -223,6 +237,7 @@ public class Main {
 		logoutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// display login form
+                frame.dispose();
 				LoginGUI();
 			}
 		});
@@ -245,23 +260,27 @@ public class Main {
 		JButton displayCandidateButton = new JButton("Display Candidate");
 		JButton logoutButton = new JButton("Logout");
 
+        frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+
 		voteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// display vote form
-				//VoteGUI();
+				// VoteGUI();
 			}
 		});
 
 		displayCandidateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// display display candidate form
-				//DisplayCandidateGUI();
+				// DisplayCandidateGUI();
 			}
 		});
 
 		logoutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// display login form
+                frame.dispose();
 				LoginGUI();
 			}
 		});
@@ -285,37 +304,41 @@ public class Main {
 		JButton displayUserButton = new JButton("Display User");
 		JButton logoutButton = new JButton("Logout");
 
+        frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+
 		addUserButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// display add user form
-				//AddUserGUI();
+				// AddUserGUI();
 			}
 		});
 
 		editUserButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// display edit user form
-				//EditUserGUI();
+				// EditUserGUI();
 			}
 		});
 
 		removeUserButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// display remove user form
-				//RemoveUserGUI();
+				// RemoveUserGUI();
 			}
 		});
 
 		displayUserButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// display display user form
-				//DisplayUserGUI();
+				// DisplayUserGUI();
 			}
 		});
 
 		logoutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// display login form
+                frame.dispose();
 				LoginGUI();
 			}
 		});
