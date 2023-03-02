@@ -950,7 +950,6 @@ public class Main {
 		frame.setVisible(true);
 	}
 
-	// I think its best if its just the index of the user in the arraylist
 	public static void VoterMenuGUI(int index) {
 		frame = new JFrame("Voter Menu");
 		frame.setSize(300, 150);
@@ -958,12 +957,9 @@ public class Main {
 		frame.setLayout(new GridLayout(3, 2));
 		frame.setResizable(false);
 
-		// Ceate a popup that says you have already voted if the voter has already voted
-		// Create a popup that says the candidate list is not yet ready if the candidate
-		// list is not full or candidateFull() returns false
+		boolean voted = ((Voter) users.get(index)).isVoted();
 
-		if (((Voter) users.get(index)).isVoted()) {
-			// cant it be a message dialog?
+		if (voted) {
 			JOptionPane.showMessageDialog(null, "You have already voted");
 		}
 
@@ -971,7 +967,7 @@ public class Main {
 			JOptionPane.showMessageDialog(null, "The candidate list is not yet ready");
 		}
 
-		if (!((Voter) users.get(index)).isVoted() && candidateFull()) {
+		if (voted && candidateFull()) {
 			JButton voteButton = new JButton("Vote");
 			voteButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -987,7 +983,7 @@ public class Main {
 		// add a button for displaying the results that is only visible if the voter has
 		// voted
 
-		if (((Voter) users.get(index)).isVoted()) {
+		if (voted) {
 			JButton displayResultsButton = new JButton("Display Results");
 			displayResultsButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
