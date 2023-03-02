@@ -122,6 +122,7 @@ public class Main {
 		frame.setSize(300, 150);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new GridLayout(3, 2));
+		frame.setResizable(false);
 
 		userLabel = new JLabel("Username:");
 		passwordLabel = new JLabel("Password:");
@@ -188,12 +189,11 @@ public class Main {
 		frame.setSize(300, 150);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new GridLayout(3, 2));
-
+		frame.setResizable(false);
 		JButton addUserButton = new JButton("Add User");
 		JButton editUserButton = new JButton("Edit User");
 		JButton removeUserButton = new JButton("Remove User");
 		JButton displayUserButton = new JButton("Display User");
-		// Add a new button to show the vote summary
 		JButton voteSummaryButton = new JButton("Vote Summary");
 		JButton logoutButton = new JButton("Logout");
 
@@ -277,12 +277,6 @@ public class Main {
 				String username = usernameText.getText();
 				String password = passwordText.getText();
 				String userType = (String) typeList.getSelectedItem();
-
-				// I want to add a check here to see if the username already exists in the list
-				// If it does, then I want to display a message saying that the username already
-				// exists
-				// If it doesn't, then continue with the code below
-
 				boolean available = true;
 
 				for (int i = 0; i < users.size(); i++) {
@@ -575,6 +569,7 @@ public class Main {
 		frame.setSize(300, 150);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new GridLayout(3, 2));
+		frame.setResizable(false);
 
 		JButton addCandidateButton = new JButton("Add Candidate");
 		JButton editCandidateButton = new JButton("Edit Candidate");
@@ -694,8 +689,6 @@ public class Main {
 					}
 					break;
 				case "Vice President":
-					// with int reply
-
 					if (numVicePresident != 3) {
 						int reply = JOptionPane.showConfirmDialog(null, "Name: " + name + " Position: " + position,
 								"Add Candidate?", JOptionPane.YES_NO_OPTION);
@@ -934,6 +927,7 @@ public class Main {
 		frame.setSize(300, 150);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new GridLayout(3, 2));
+		frame.setResizable(false);
 
 		// Ceate a popup that says you have already voted if the voter has already voted
 		// Create a popup that says the candidate list is not yet ready if the candidate
