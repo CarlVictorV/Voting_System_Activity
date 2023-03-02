@@ -1,27 +1,3 @@
-//This file will be an overall will be creating an Automated Voting System
-
-//HIGH-Level Specifications:
-//-The system should have 3 types of users: Superuser(Admin basically), Officer, and Voter
-//-The supseruser can only add, remove, and update an officer and voter.
-//-The officer can only add, remove, and update candidates.
-//-The voter can only vote for a candidates.
-//-The digital ballot should display the candidates for (3) President, (3) Vice President, (10) Senators, (10) District Representatives, (3) Governors, and (3) Mayors.
-//-The voter can only submit his/her vote if it complies with the voting requirement below:
-// -- 1 President, 1 Vice President, 5 Senators, 4 Representatives, 1 Governor, and 1 Mayor
-// -- The voter cannot start voting unless the maximum number of candidates per position is satisfied.
-//-If at least 1 voter has submitted his/her vote, an officer can no longer modify the roster of candidates.
-//-A summary, preferably in a graphical form, of the number of votes per candidate should be available to all users.
-//-However, voters can only view the report after they have submitted their vote.
-
-//Technical Specifications:
-//Implement the following:
-//-Encapsulation
-//-Inheritance
-//-Polymorphism
-//-Constructors Overloading
-//-GUI (Required) Also the hardest for me, because I have no experience in GUI
-//-JavaDoc (Required)
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -44,8 +20,6 @@ public class Main {
 	static ArrayList<User> users = new ArrayList<User>();
 	static ArrayList<Candidates> candidates = new ArrayList<Candidates>();
 	public static Scanner input = new Scanner(System.in);
-
-	// create a global counter for the number of position
 	public static int numPresident = 0;
 	public static int numVicePresident = 0;
 	public static int numSenator = 0;
@@ -97,7 +71,6 @@ public class Main {
 	}
 
 	// Global
-	// Create a method that will check if there is a candidate that has been voted
 	public static boolean candidateVoted() {
 		for (int i = 0; i < candidates.size(); i++) {
 			if (candidates.get(i).getVotes() > 0) {
