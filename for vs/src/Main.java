@@ -67,7 +67,6 @@ public class Main {
 	public static void main(String[] args) {
 
 		addDummy();
-		// Make a for each loop for users
 
 		LoginGUI();
 
@@ -550,7 +549,7 @@ public class Main {
 					if (users.get(i).getUserName().equals(username)) {
 						index = i;
 
-						//Create checker to see if the user has voted
+						// Create checker to see if the user has voted
 
 						if (users.get(index) instanceof Voter) {
 							if (((Voter) users.get(index)).isVoted()) {
@@ -606,42 +605,53 @@ public class Main {
 
 		addCandidateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// display add candidate form
-				addCandidate();
+
+				if (candidateFull()) {
+					JOptionPane.showMessageDialog(null, "Candidate list is full");
+				} else {
+					addCandidate();
+				}
 			}
 		});
 
 		editCandidateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// display edit candidate form
-				editCandidate();
+				if (candidateVoted()) {
+					JOptionPane.showMessageDialog(null, "Voting has started");
+				} else {
+					editCandidate();
+				}
 			}
 		});
 
 		removeCandidateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// display remove candidate form
-				removeCandidate();
+				if (candidateVoted()) {
+					JOptionPane.showMessageDialog(null, "Voting has started");
+				} else {
+					removeCandidate();
+				}
 			}
 		});
 
 		displayCandidateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// display display candidate form
 				displayCandidate();
 			}
 		});
 
 		voteSummaryButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// display vote summary form
-				voteSummaryGUI();
+				if (candidateVoted() == false) {
+					JOptionPane.showMessageDialog(null, "Voting has not started");
+				} else {
+					voteSummaryGUI();
+				}
 			}
 		});
 
 		logoutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// display login form
 				frame.dispose();
 				LoginGUI();
 			}
@@ -690,13 +700,6 @@ public class Main {
 			public void actionPerformed(ActionEvent e) {
 				String name = nameText.getText();
 				String position = positionList.getSelectedItem().toString();
-
-				// check position and add the correct candidate subclass object to the
-				// candidates arraylist
-				// Limits per postion (3) President, (3) Vice President, (10) Senators, (10)
-				// District Representatives, (3) Governors, and (3) Mayors.
-				// Would it be better to show a message dialog and say the candidates
-				// information before adding it to the arraylist? answer: yes
 				switch (position) {
 				case "President":
 					if (numPresident != 3) {
