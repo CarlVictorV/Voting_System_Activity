@@ -46,17 +46,6 @@ public class Main {
 
 	}
 
-	// Officer
-
-	public static void editCandidate() {
-	}
-
-	public static void removeCandidate() {
-	}
-
-	public static void displayCandidate() {
-	}
-
 	// voters
 	public static void voteCandidates() {
 	}
@@ -474,7 +463,7 @@ public class Main {
 				if (usernameExists && !sameUsername) {
 					JOptionPane.showMessageDialog(null, "Username already exists");
 					frame.dispose();
-					EditUserGUI2(index);
+					SuperUserMenuGUI();
 				}
 
 				int reply = JOptionPane.showConfirmDialog(null,
@@ -636,7 +625,7 @@ public class Main {
 					JOptionPane.showMessageDialog(null, "Voting has started");
 				} else {
 					frame.dispose();
-					editCandidate();
+					candidateEditGUI();
 				}
 			}
 		});
@@ -647,7 +636,7 @@ public class Main {
 					JOptionPane.showMessageDialog(null, "Voting has started");
 				} else {
 					frame.dispose();
-					removeCandidate();
+					removeCandidateGUI();
 				}
 			}
 		});
@@ -687,28 +676,13 @@ public class Main {
 		frame.setVisible(true);
 	}
 
-	// Time for Officer Menu Methods
-	// Again the Candidate class is the super class for the President, Vice
-	// President, and etc. classes
-	// The Candidates class has the following attributes: name, votes (int), and
-	// position (String)
-	// The Candidates class has the following methods: getName(), getVotes(),
-	// getPosition(), setName(String), setVotes(int), setPosition(String)
-	// The Officer class or user can add, edit, and remove candidates.
-
 	public static void addCandidate() {
 		frame = new JFrame("Add Candidate");
 		frame.setSize(300, 150);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new GridLayout(3, 2));
-
-		// Would it be better to make the position a drop down list? and then use a
-		// switch statement to create the object? answer: yes
-
 		JLabel nameLabel = new JLabel("Name:");
 		JTextField nameText = new JTextField(20);
-		// President, Vice President, Senators, District Representatives, Governors, and
-		// Mayors.
 		String[] positions = { "President", "Vice President", "Senator", "District Representative", "Governor",
 				"Mayor" };
 		JComboBox<Object> positionList = new JComboBox<Object>(positions);
@@ -842,131 +816,27 @@ public class Main {
 		frame.setVisible(true);
 	}
 
-	// Display Candidate GUI
-	// There will be a big GUI table that will display all the candidates in the
-	// system.
-	// The table will have the following columns: Position, Name, Votes.
-	// The table will be sorted by position.
-
-	// Specifically from President, Vice President, Senators, District
-	// Representatives, Governors, and Mayors.
-	// Not necessarily sorted but grouped together.
-
 	public static void DisplayCandidateGUI() {
 		frame = new JFrame("Display Candidate");
-		frame.setSize(500, 500);
+		frame.setSize(300, 150);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLayout(new GridLayout(2, 1));
+		frame.setLayout(new GridLayout(3, 2));
 
-		// create table
-		String[] columnNames = { "Position", "Name", "Votes" };
+		String[] columnNames = { "Position", "Name" };
 
-		// It will use the Global candidates position counter to determine the size of
-		// the array of the specific position.
+		Object[][] data = new Object[candidates.size()][2];
 
-		if (numPresident > 0) {
-			Object[][] Pdata = new Object[numPresident][3];
-			for (int i = 0; i < numPresident; i++) {
-				Pdata[i][0] = candidates.get(i).getPosition();
-				Pdata[i][1] = candidates.get(i).getName();
-				Pdata[i][2] = candidates.get(i).getVotes();
-			}
-
-			// create table
-
-			JTable table = new JTable(Pdata, columnNames);
-			table.setPreferredScrollableViewportSize(new Dimension(500, 70));
-			table.setFillsViewportHeight(true);
+		for (int i = 0; i < candidates.size(); i++) {
+			data[i][1] = candidates.get(i).getName();
+			data[i][0] = candidates.get(i).getPosition();
 		}
 
-		if (numVicePresident > 0) {
-			Object[][] VPdata = new Object[numVicePresident][3];
-			for (int i = 0; i < numVicePresident; i++) {
-				VPdata[i][0] = candidates.get(i).getPosition();
-				VPdata[i][1] = candidates.get(i).getName();
-				VPdata[i][2] = candidates.get(i).getVotes();
-			}
-
-			// create table
-
-			JTable table = new JTable(VPdata, columnNames);
-			table.setPreferredScrollableViewportSize(new Dimension(500, 70));
-			table.setFillsViewportHeight(true);
-		}
-
-		if (numSenator > 0) {
-			Object[][] Sdata = new Object[numSenator][3];
-			for (int i = 0; i < numSenator; i++) {
-				Sdata[i][0] = candidates.get(i).getPosition();
-				Sdata[i][1] = candidates.get(i).getName();
-				Sdata[i][2] = candidates.get(i).getVotes();
-			}
-
-			// create table
-
-			JTable table = new JTable(Sdata, columnNames);
-			table.setPreferredScrollableViewportSize(new Dimension(500, 70));
-			table.setFillsViewportHeight(true);
-		}
-
-		if (numDistrictRepresentative > 0) {
-			Object[][] DRdata = new Object[numDistrictRepresentative][3];
-			for (int i = 0; i < numDistrictRepresentative; i++) {
-				DRdata[i][0] = candidates.get(i).getPosition();
-				DRdata[i][1] = candidates.get(i).getName();
-				DRdata[i][2] = candidates.get(i).getVotes();
-			}
-
-			// create table
-
-			JTable table = new JTable(DRdata, columnNames);
-			table.setPreferredScrollableViewportSize(new Dimension(500, 70));
-			table.setFillsViewportHeight(true);
-
-		}
-
-		if (numGovernor > 0) {
-			Object[][] Gdata = new Object[numGovernor][3];
-			for (int i = 0; i < numGovernor; i++) {
-				Gdata[i][0] = candidates.get(i).getPosition();
-				Gdata[i][1] = candidates.get(i).getName();
-				Gdata[i][2] = candidates.get(i).getVotes();
-			}
-
-			// create table
-
-			JTable table = new JTable(Gdata, columnNames);
-			table.setPreferredScrollableViewportSize(new Dimension(500, 70));
-			table.setFillsViewportHeight(true);
-
-		}
-
-		if (numMayor > 0) {
-			Object[][] Mdata = new Object[numMayor][3];
-			for (int i = 0; i < numMayor; i++) {
-				Mdata[i][0] = candidates.get(i).getPosition();
-				Mdata[i][1] = candidates.get(i).getName();
-				Mdata[i][2] = candidates.get(i).getVotes();
-			}
-
-			// create table
-
-			JTable table = new JTable(Mdata, columnNames);
-			table.setPreferredScrollableViewportSize(new Dimension(500, 70));
-			table.setFillsViewportHeight(true);
-
-		}
-
-		if (numPresident == 0 && numVicePresident == 0 && numSenator == 0 && numDistrictRepresentative == 0
-				&& numGovernor == 0 && numMayor == 0) {
-			// Just show a message that there are no candidates.
-			JOptionPane.showMessageDialog(null, "There are no candidates");
-			frame.dispose();
-		}
-		// JScrollPane scrollPane = new JScrollPane(table);
-		// frame.add(scrollPane);
+		JTable table = new JTable(data, columnNames);
+		JScrollPane scrollPane = new JScrollPane(table);
+		frame.add(scrollPane, BorderLayout.CENTER);
 
 		JButton backButton = new JButton("Back");
+
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
@@ -977,6 +847,199 @@ public class Main {
 		frame.add(backButton);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+	}
+
+	public static void candidateEditGUI() {
+		frame.setSize(300, 150);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLayout(new GridLayout(3, 2));
+
+		JLabel usernameLabel = new JLabel("Name:");
+		JTextField usernameText = new JTextField(20);
+
+		JButton submitButton = new JButton("Submit");
+		JButton cancelButton = new JButton("Cancel");
+
+		DisplayCandidateGUI();
+
+		submitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String username = usernameText.getText();
+				int index = -1;
+				for (int i = 0; i < candidates.size(); i++) {
+					if (candidates.get(i).getName().equals(username)) {
+						index = i;
+					}
+				}
+
+				if (index == -1) {
+					JOptionPane.showMessageDialog(null, "Candidate does not exist");
+					frame.dispose();
+					OfficerMenuGUI();
+				} else {
+					frame.dispose();
+
+					candyEditGUI2(index);
+				}
+
+			}
+		});
+
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				OfficerMenuGUI();
+			}
+		});
+
+		frame.add(usernameLabel);
+		frame.add(usernameText);
+		frame.add(submitButton);
+		frame.add(cancelButton);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+	}
+
+	public static void candyEditGUI2(int index) {
+		frame = new JFrame("Edit Candidates");
+		frame.setSize(300, 150);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLayout(new GridLayout(3, 2));
+		JLabel nameLabel = new JLabel("Name:");
+		JTextField nameText = new JTextField(20);
+		JButton submitButton = new JButton("Submit");
+		JButton cancelButton = new JButton("Cancel");
+
+		nameText.setText(candidates.get(index).getName());
+
+		submitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String name = nameText.getText();
+
+				int reply = JOptionPane.showConfirmDialog(null, "Name: " + name, "Edit Candidate?",
+						JOptionPane.YES_NO_OPTION);
+
+				if (reply == JOptionPane.YES_OPTION) {
+
+					String position = candidates.get(index).getPosition();
+					switch (position) {
+					case "President":
+						candidates.set(index, new President(name, position));
+						break;
+					case "Vice President":
+						candidates.set(index, new VicePresident(name, position));
+						break;
+					case "Senator":
+						candidates.set(index, new Senators(name, position));
+						break;
+					case "District Representative":
+						candidates.set(index, new DistrictRepresentatives(name, position));
+						break;
+					case "Governor":
+						candidates.set(index, new Governer(name, position));
+						break;
+					case "Mayor":
+						candidates.set(index, new Mayor(name, position));
+						break;
+					}
+				}
+				frame.dispose();
+				OfficerMenuGUI();
+
+			}
+		});
+
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				OfficerMenuGUI();
+			}
+		});
+
+		frame.add(nameLabel);
+		frame.add(nameText);
+		frame.add(submitButton);
+		frame.add(cancelButton);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+	}
+
+	public static void removeCandidateGUI() {
+		frame.setSize(300, 150);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLayout(new GridLayout(3, 2));
+
+		JLabel nameLabel = new JLabel("Name:");
+		JTextField nameText = new JTextField(20);
+		JButton submitButton = new JButton("Submit");
+		JButton cancelButton = new JButton("Cancel");
+
+		DisplayCandidateGUI();
+
+		submitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String name = nameText.getText();
+
+				int index = -1;
+
+				for (int i = 0; i < candidates.size(); i++) {
+					if (candidates.get(i).getName().equals(name)) {
+						index = i;
+					}
+				}
+
+				if (index == -1) {
+					JOptionPane.showMessageDialog(null, "Candidate does not exist");
+					frame.dispose();
+					OfficerMenuGUI();
+				} else {
+					int reply = JOptionPane.showConfirmDialog(null, "Name: " + name, "Remove Candidate?",
+							JOptionPane.YES_NO_OPTION);
+					if (reply == JOptionPane.YES_OPTION) {
+
+						String position = candidates.get(index).getPosition();
+						switch (position) {
+						case "President":
+							numPresident--;
+							break;
+						case "Vice President":
+							numVicePresident--;
+							break;
+						case "Senator":
+							numSenator--;
+							break;
+						case "District Representative":
+							numDistrictRepresentative--;
+							break;
+						case "Governor":
+							numGovernor--;
+							break;
+						case "Mayor":
+							numMayor--;
+							break;
+						}
+					}
+				}
+				candidates.remove(index);
+				frame.dispose();
+				OfficerMenuGUI();
+			}
+		});
+
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				OfficerMenuGUI();
+			}
+		});
+
+		frame.add(nameLabel);
+		frame.add(nameText);
+		frame.add(submitButton);
+		frame.add(cancelButton);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+
 	}
 
 	public static void VoterMenuGUI(int index) {
@@ -1001,7 +1064,7 @@ public class Main {
 			voteButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					// display vote form
-					// VoteGUI();
+					VoteGUI(index);
 				}
 			});
 			frame.add(voteButton);
@@ -1009,8 +1072,6 @@ public class Main {
 
 		JButton displayCandidateButton = new JButton("Display Candidate");
 		JButton logoutButton = new JButton("Logout");
-		// add a button for displaying the results that is only visible if the voter has
-		// voted
 
 		if (voted) {
 			JButton displayResultsButton = new JButton("Display Results");
@@ -1027,7 +1088,7 @@ public class Main {
 			public void actionPerformed(ActionEvent e) {
 				// display display candidate form
 				frame.dispose();
-				DisplayCandidateGUI();
+				DisplayCandidateGUI(index);
 			}
 		});
 
@@ -1043,5 +1104,48 @@ public class Main {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
+	
+	public static void DisplayCandidateGUI(int index) {
+		frame = new JFrame("Display Candidate");
+		frame.setSize(300, 150);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLayout(new GridLayout(3, 2));
 
+		String[] columnNames = { "Position", "Name" };
+
+		Object[][] data = new Object[candidates.size()][2];
+
+		for (int i = 0; i < candidates.size(); i++) {
+			data[i][1] = candidates.get(i).getName();
+			data[i][0] = candidates.get(i).getPosition();
+		}
+
+		JTable table = new JTable(data, columnNames);
+		JScrollPane scrollPane = new JScrollPane(table);
+		frame.add(scrollPane, BorderLayout.CENTER);
+
+		JButton backButton = new JButton("Back");
+
+		backButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				VoterMenuGUI(index);
+			}
+		});
+
+		frame.add(backButton);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+	}
+
+
+
+	public static void VoteGUI(int index)
+	{
+		frame = new JFrame("Vote ");
+		frame.setSize(300, 150);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLayout(new GridLayout(3, 2));
+	}
 }
+
