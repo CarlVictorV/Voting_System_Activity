@@ -22,11 +22,23 @@
 //-GUI (Required) Also the hardest for me, because I have no experience in GUI
 //-JavaDoc (Required)
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Scanner;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 
 public class Main {
 	static ArrayList<User> users = new ArrayList<User>();
@@ -76,15 +88,7 @@ public class Main {
 	public static void voteCandidates() {
 	}
 
-	public static boolean candidateFull() // Purpose: To check if the number of candidates is equal to the number of
-											// allowed candidates so that the voter can start voting.
-	{
-		// return true if the number of candidates is equal to the number of allowed
-		// candidates.
-		// return false if the number of candidates is less than the number of allowed
-		// candidates.
-		// Again stated above is the maximum number of candidates per position.
-
+	public static boolean candidateFull() {
 		if (numPresident == 3 && numVicePresident == 3 && numSenator == 10 && numDistrictRepresentative == 10
 				&& numGovernor == 3 && numMayor == 3) {
 			return true;
@@ -94,7 +98,17 @@ public class Main {
 	}
 
 	// Global
-	public static void voteSummary() {
+	// Create a method that will check if there is a candidate that has been voted
+	public static boolean candidateVoted() {
+		for (int i = 0; i < candidates.size(); i++) {
+			if (candidates.get(i).getVotes() > 0) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static void voteSummaryGUI() {
 	}
 
 	public static void addDummy() {
@@ -135,7 +149,7 @@ public class Main {
 							OfficerMenuGUI();
 						} else if (users.get(i) instanceof Voter) {
 							frame.dispose();
-							VoterMenuGUI();
+							VoterMenuGUI(i);
 						}
 
 						valid = true;
@@ -179,6 +193,8 @@ public class Main {
 		JButton editUserButton = new JButton("Edit User");
 		JButton removeUserButton = new JButton("Remove User");
 		JButton displayUserButton = new JButton("Display User");
+		// Add a new button to show the vote summary
+		JButton voteSummaryButton = new JButton("Vote Summary");
 		JButton logoutButton = new JButton("Logout");
 
 		addUserButton.addActionListener(new ActionListener() {
@@ -209,6 +225,13 @@ public class Main {
 			}
 		});
 
+		voteSummaryButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// display vote summary form
+				voteSummaryGUI();
+			}
+		});
+
 		logoutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// display login form
@@ -221,6 +244,7 @@ public class Main {
 		frame.add(editUserButton);
 		frame.add(removeUserButton);
 		frame.add(displayUserButton);
+		frame.add(voteSummaryButton);
 		frame.add(logoutButton);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
@@ -242,7 +266,7 @@ public class Main {
 		JTextField passwordText = new JTextField(20);
 
 		String[] type = { "Officer", "Voter" };
-		JComboBox typeList = new JComboBox(type);
+		JComboBox<Object> typeList = new JComboBox<Object>(type);
 
 		JButton submitButton = new JButton("Submit");
 		JButton cancelButton = new JButton("Cancel");
@@ -408,7 +432,7 @@ public class Main {
 		JTextField passwordText = new JTextField(20);
 
 		String[] type = { "Officer", "Voter" };
-		JComboBox typeList = new JComboBox(type);
+		JComboBox<Object> typeList = new JComboBox<Object>(type);
 
 		JButton submitButton = new JButton("Submit");
 		JButton cancelButton = new JButton("Cancel");
@@ -429,6 +453,12 @@ public class Main {
 				String password = passwordText.getText();
 				String userType = (String) typeList.getSelectedItem();
 
+				boolean sameUsername = false;
+
+				if (users.get(index).getUserName().equals(username)) {
+					sameUsername = true;
+				}
+
 				boolean usernameExists = false;
 
 				for (int i = 0; i < users.size(); i++) {
@@ -437,7 +467,7 @@ public class Main {
 					}
 				}
 
-				if (usernameExists) {
+				if (usernameExists && !sameUsername) {
 					JOptionPane.showMessageDialog(null, "Username already exists");
 					frame.dispose();
 					return;
@@ -451,7 +481,18 @@ public class Main {
 					if (userType.equals("Officer")) {
 						users.set(index, new Officer(name, username, password));
 					} else if (userType.equals("Voter")) {
-						users.set(index, new Voter(name, username, password));
+						// Can we check if the user has voted before? If so, we have to set the voted
+						// boolean to true
+
+						if (users.get(index) instanceof Voter) {
+							if (((Voter) users.get(index)).isVoted()) {
+								users.set(index, new Voter(name, username, password, true));
+							} else {
+								users.set(index, new Voter(name, username, password));
+							}
+						} else {
+							users.set(index, new Voter(name, username, password));
+						}
 					}
 				}
 				frame.dispose();
@@ -539,6 +580,7 @@ public class Main {
 		JButton editCandidateButton = new JButton("Edit Candidate");
 		JButton removeCandidateButton = new JButton("Remove Candidate");
 		JButton displayCandidateButton = new JButton("Display Candidate");
+		JButton voteSummaryButton = new JButton("Vote Summary");
 		JButton logoutButton = new JButton("Logout");
 
 		addCandidateButton.addActionListener(new ActionListener() {
@@ -569,6 +611,13 @@ public class Main {
 			}
 		});
 
+		voteSummaryButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// display vote summary form
+				voteSummaryGUI();
+			}
+		});
+
 		logoutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// display login form
@@ -581,6 +630,7 @@ public class Main {
 		frame.add(editCandidateButton);
 		frame.add(removeCandidateButton);
 		frame.add(displayCandidateButton);
+		frame.add(voteSummaryButton);
 		frame.add(logoutButton);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
@@ -610,7 +660,7 @@ public class Main {
 		// Mayors.
 		String[] positions = { "President", "Vice President", "Senator", "District Representative", "Governor",
 				"Mayor" };
-		JComboBox positionList = new JComboBox(positions);
+		JComboBox<Object> positionList = new JComboBox<Object>(positions);
 
 		JButton submitButton = new JButton("Submit");
 		JButton cancelButton = new JButton("Cancel");
@@ -863,8 +913,8 @@ public class Main {
 			JOptionPane.showMessageDialog(null, "There are no candidates");
 			frame.dispose();
 		}
-		//JScrollPane scrollPane = new JScrollPane(table);
-		//frame.add(scrollPane);
+		// JScrollPane scrollPane = new JScrollPane(table);
+		// frame.add(scrollPane);
 
 		JButton backButton = new JButton("Back");
 		backButton.addActionListener(new ActionListener() {
@@ -878,22 +928,52 @@ public class Main {
 		frame.setVisible(true);
 	}
 
-	public static void VoterMenuGUI() {
+	// I think its best if its just the index of the user in the arraylist
+	public static void VoterMenuGUI(int index) {
 		frame = new JFrame("Voter Menu");
 		frame.setSize(300, 150);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new GridLayout(3, 2));
 
-		JButton voteButton = new JButton("Vote");
+		// Ceate a popup that says you have already voted if the voter has already voted
+		// Create a popup that says the candidate list is not yet ready if the candidate
+		// list is not full or candidateFull() returns false
+
+		if (((Voter) users.get(index)).isVoted()) {
+			// cant it be a message dialog?
+			JOptionPane.showMessageDialog(null, "You have already voted");
+		}
+
+		if (!candidateFull()) {
+			JOptionPane.showMessageDialog(null, "The candidate list is not yet ready");
+		}
+
+		if (!((Voter) users.get(index)).isVoted() && candidateFull()) {
+			JButton voteButton = new JButton("Vote");
+			voteButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					// display vote form
+					// VoteGUI();
+				}
+			});
+			frame.add(voteButton);
+		}
+
 		JButton displayCandidateButton = new JButton("Display Candidate");
 		JButton logoutButton = new JButton("Logout");
+		// add a button for displaying the results that is only visible if the voter has
+		// voted
 
-		voteButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// display vote form
-				// VoteGUI();
-			}
-		});
+		if (((Voter) users.get(index)).isVoted()) {
+			JButton displayResultsButton = new JButton("Display Results");
+			displayResultsButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					// display results form
+					// DisplayResultsGUI();
+				}
+			});
+			frame.add(displayResultsButton);
+		}
 
 		displayCandidateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -905,12 +985,10 @@ public class Main {
 		logoutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// display login form
-				frame.dispose();
-				LoginGUI();
+				// LoginGUI();
 			}
 		});
 
-		frame.add(voteButton);
 		frame.add(displayCandidateButton);
 		frame.add(logoutButton);
 		frame.setLocationRelativeTo(null);
