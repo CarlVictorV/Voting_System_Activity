@@ -115,6 +115,8 @@ public class Main {
 		users.add(new Superuser("Superuser", "a", "a"));
 		users.add(new Officer("Officer", "b", "b"));
 		users.add(new Voter("Voter", "voter", "voter"));
+		users.add(new Voter("Voter", "cc", "cc", true));
+
 	}
 
 	public static void LoginGUI() {
@@ -391,7 +393,20 @@ public class Main {
 				if (index == 0) {
 					JOptionPane.showMessageDialog(null, "Username not found");
 				} else {
-					EditUserGUI2(index);
+
+					// if user is an voter and is already voted yet then pop up a message saying
+					// that the user has voted.
+					if (users.get(index) instanceof Voter) {
+						if (((Voter) users.get(index)).isVoted() == true) {
+							JOptionPane.showMessageDialog(null, "User has already voted");
+							// return to the officer menu
+							frame.dispose();
+						} else {
+							EditUserGUI2(index);
+						}
+					} else {
+						EditUserGUI2(index);
+					}
 				}
 			}
 		});
@@ -534,6 +549,17 @@ public class Main {
 				for (int i = 0; i < users.size(); i++) {
 					if (users.get(i).getUserName().equals(username)) {
 						index = i;
+
+						//Create checker to see if the user has voted
+
+						if (users.get(index) instanceof Voter) {
+							if (((Voter) users.get(index)).isVoted()) {
+								JOptionPane.showMessageDialog(null, "User has already voted");
+								frame.dispose();
+								return;
+							}
+						}
+
 						int reply = JOptionPane.showConfirmDialog(null,
 								"Name: " + users.get(index).getName() + " Username: " + users.get(index).getUserName()
 										+ " Password: " + users.get(index).getPassword() + " Type: "
@@ -978,8 +1004,8 @@ public class Main {
 
 		logoutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// display login form
-				// LoginGUI();
+				frame.dispose();
+				LoginGUI();
 			}
 		});
 
