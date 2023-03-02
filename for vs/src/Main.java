@@ -201,6 +201,7 @@ public class Main {
 		addUserButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// display add user form
+				frame.dispose();
 				AddUserGUI();
 			}
 		});
@@ -208,6 +209,7 @@ public class Main {
 		editUserButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// display edit user form
+				frame.dispose();
 				EditUserGUI();
 			}
 		});
@@ -215,6 +217,7 @@ public class Main {
 		removeUserButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// display remove user form
+				frame.dispose();
 				RemoveUserGUI();
 			}
 		});
@@ -222,14 +225,21 @@ public class Main {
 		displayUserButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// display display user form
+				frame.dispose();
 				DisplayUserGUI();
 			}
 		});
 
 		voteSummaryButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// display vote summary form
-				voteSummaryGUI();
+
+				if (candidateVoted() == true) {
+					// display vote summary form
+					frame.dispose();
+					voteSummaryGUI();
+				} else {
+					JOptionPane.showMessageDialog(null, "No candidate has been voted yet");
+				}
 			}
 		});
 
@@ -299,8 +309,10 @@ public class Main {
 							users.add(new Voter(name, username, password));
 						}
 					}
-					frame.dispose();
 				}
+
+				frame.dispose();
+				SuperUserMenuGUI();
 
 			}
 		});
@@ -308,6 +320,7 @@ public class Main {
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
+				SuperUserMenuGUI();
 			}
 		});
 
@@ -355,6 +368,7 @@ public class Main {
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
+				SuperUserMenuGUI();
 			}
 		});
 
@@ -387,10 +401,14 @@ public class Main {
 					}
 				}
 
-				frame.dispose();
-
 				if (index == 0) {
-					JOptionPane.showMessageDialog(null, "Username not found");
+					if (users.get(index).getUserName().equals(username)) {
+						JOptionPane.showMessageDialog(null, "Cannot edit super user");
+					} else {
+						JOptionPane.showMessageDialog(null, "Username does not exist");
+					}
+					frame.dispose();
+					SuperUserMenuGUI();
 				} else {
 
 					// if user is an voter and is already voted yet then pop up a message saying
@@ -400,19 +418,24 @@ public class Main {
 							JOptionPane.showMessageDialog(null, "User has already voted");
 							// return to the officer menu
 							frame.dispose();
+							SuperUserMenuGUI();
 						} else {
+							frame.dispose();
 							EditUserGUI2(index);
 						}
 					} else {
+						frame.dispose();
 						EditUserGUI2(index);
 					}
 				}
+
 			}
 		});
 
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
+				SuperUserMenuGUI();
 			}
 		});
 
@@ -478,7 +501,7 @@ public class Main {
 				if (usernameExists && !sameUsername) {
 					JOptionPane.showMessageDialog(null, "Username already exists");
 					frame.dispose();
-					return;
+					EditUserGUI2(index);
 				}
 
 				int reply = JOptionPane.showConfirmDialog(null,
@@ -489,8 +512,6 @@ public class Main {
 					if (userType.equals("Officer")) {
 						users.set(index, new Officer(name, username, password));
 					} else if (userType.equals("Voter")) {
-						// Can we check if the user has voted before? If so, we have to set the voted
-						// boolean to true
 
 						if (users.get(index) instanceof Voter) {
 							if (((Voter) users.get(index)).isVoted()) {
@@ -504,12 +525,14 @@ public class Main {
 					}
 				}
 				frame.dispose();
+				SuperUserMenuGUI();
 			}
 		});
 
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
+				SuperUserMenuGUI();
 			}
 		});
 
@@ -555,9 +578,17 @@ public class Main {
 							if (((Voter) users.get(index)).isVoted()) {
 								JOptionPane.showMessageDialog(null, "User has already voted");
 								frame.dispose();
+								SuperUserMenuGUI();
 								return;
 							}
+						} else if (users.get(index) instanceof Superuser) {
+							JOptionPane.showMessageDialog(null, "Cannot remove Yourself!");
+							frame.dispose();
+							SuperUserMenuGUI();
+							return;
 						}
+						// add an else if for superuser, and if the user is a superuser, don't let them
+						// remove themselves
 
 						int reply = JOptionPane.showConfirmDialog(null,
 								"Name: " + users.get(index).getName() + " Username: " + users.get(index).getUserName()
@@ -566,18 +597,29 @@ public class Main {
 								"Remove User?", JOptionPane.YES_NO_OPTION);
 						if (reply == JOptionPane.YES_OPTION) {
 							users.remove(index);
+							JOptionPane.showMessageDialog(null, "User Removed");
+							frame.dispose();
+							SuperUserMenuGUI();
 						} else {
 							frame.dispose();
+							SuperUserMenuGUI();
 						}
 					}
 				}
+
+				// Create a message that user does not exist
+
+				JOptionPane.showMessageDialog(null, "User does not exist");
+
 				frame.dispose();
+				SuperUserMenuGUI();
 			}
 		});
 
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
+				SuperUserMenuGUI();
 			}
 		});
 
@@ -609,6 +651,7 @@ public class Main {
 				if (candidateFull()) {
 					JOptionPane.showMessageDialog(null, "Candidate list is full");
 				} else {
+					frame.dispose();
 					addCandidate();
 				}
 			}
@@ -619,6 +662,7 @@ public class Main {
 				if (candidateVoted()) {
 					JOptionPane.showMessageDialog(null, "Voting has started");
 				} else {
+					frame.dispose();
 					editCandidate();
 				}
 			}
@@ -629,6 +673,7 @@ public class Main {
 				if (candidateVoted()) {
 					JOptionPane.showMessageDialog(null, "Voting has started");
 				} else {
+					frame.dispose();
 					removeCandidate();
 				}
 			}
@@ -636,7 +681,8 @@ public class Main {
 
 		displayCandidateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				displayCandidate();
+				frame.dispose();
+				DisplayCandidateGUI();
 			}
 		});
 
@@ -645,6 +691,7 @@ public class Main {
 				if (candidateVoted() == false) {
 					JOptionPane.showMessageDialog(null, "Voting has not started");
 				} else {
+					frame.dispose();
 					voteSummaryGUI();
 				}
 			}
@@ -712,6 +759,7 @@ public class Main {
 							numPresident++;
 						} else {
 							frame.dispose();
+							OfficerMenuGUI();
 						}
 					} else {
 						JOptionPane.showMessageDialog(null, "President limit reached");
@@ -727,6 +775,7 @@ public class Main {
 							numVicePresident++;
 						} else {
 							frame.dispose();
+							OfficerMenuGUI();
 						}
 					} else {
 						JOptionPane.showMessageDialog(null, "Vice President limit reached");
@@ -743,6 +792,7 @@ public class Main {
 							numSenator++;
 						} else {
 							frame.dispose();
+							OfficerMenuGUI();
 						}
 					} else {
 						JOptionPane.showMessageDialog(null, "Senator limit reached");
@@ -758,6 +808,7 @@ public class Main {
 							numDistrictRepresentative++;
 						} else {
 							frame.dispose();
+							OfficerMenuGUI();
 						}
 					} else {
 						JOptionPane.showMessageDialog(null, "District Representative limit reached");
@@ -773,6 +824,7 @@ public class Main {
 							numGovernor++;
 						} else {
 							frame.dispose();
+							OfficerMenuGUI();
 						}
 					} else {
 						JOptionPane.showMessageDialog(null, "Governor limit reached");
@@ -788,6 +840,7 @@ public class Main {
 							numMayor++;
 						} else {
 							frame.dispose();
+							OfficerMenuGUI();
 						}
 					} else {
 						JOptionPane.showMessageDialog(null, "Mayor limit reached");
@@ -796,12 +849,14 @@ public class Main {
 				}
 
 				frame.dispose();
+				OfficerMenuGUI();
 			}
 		});
 
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
+				OfficerMenuGUI();
 			}
 		});
 
@@ -942,6 +997,7 @@ public class Main {
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
+				OfficerMenuGUI();
 			}
 		});
 
@@ -997,7 +1053,8 @@ public class Main {
 		displayCandidateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// display display candidate form
-				// DisplayCandidateGUI();
+				frame.dispose();
+				DisplayCandidateGUI();
 			}
 		});
 
