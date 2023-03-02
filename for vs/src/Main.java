@@ -1,5 +1,4 @@
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -848,14 +847,16 @@ public class Main {
 		frame.setVisible(true);
 	}
 
-	public static void candidateEditGUI() {
+	public static void candidateEditGUI()// Purpose: To edit the candidates name and position
+	{
+		frame = new JFrame("Edit Candidates");
 		frame.setSize(300, 150);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new GridLayout(3, 2));
+		frame.setResizable(false);
 
-		JLabel usernameLabel = new JLabel("Name:");
-		JTextField usernameText = new JTextField(20);
-
+		JLabel nameLabel = new JLabel("Name:");
+		JTextField nameText = new JTextField(20);
 		JButton submitButton = new JButton("Submit");
 		JButton cancelButton = new JButton("Cancel");
 
@@ -863,88 +864,22 @@ public class Main {
 
 		submitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String username = usernameText.getText();
+				String name = nameText.getText();
+
 				int index = -1;
+
 				for (int i = 0; i < candidates.size(); i++) {
-					if (candidates.get(i).getName().equals(username)) {
+					if (candidates.get(i).getName().equals(name)) {
 						index = i;
 					}
 				}
 
 				if (index == -1) {
-					JOptionPane.showMessageDialog(null, "Candidate does not exist");
-					frame.dispose();
-					OfficerMenuGUI();
+					JOptionPane.showMessageDialog(null, "Candidate not found");
 				} else {
 					frame.dispose();
-
-					candyEditGUI2(index);
+					candidateEditGUI2(index);
 				}
-
-			}
-		});
-
-		cancelButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				OfficerMenuGUI();
-			}
-		});
-
-		frame.add(usernameLabel);
-		frame.add(usernameText);
-		frame.add(submitButton);
-		frame.add(cancelButton);
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
-	}
-
-	public static void candyEditGUI2(int index) {
-		frame = new JFrame("Edit Candidates");
-		frame.setSize(300, 150);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLayout(new GridLayout(3, 2));
-		JLabel nameLabel = new JLabel("Name:");
-		JTextField nameText = new JTextField(20);
-		JButton submitButton = new JButton("Submit");
-		JButton cancelButton = new JButton("Cancel");
-
-		nameText.setText(candidates.get(index).getName());
-
-		submitButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String name = nameText.getText();
-
-				int reply = JOptionPane.showConfirmDialog(null, "Name: " + name, "Edit Candidate?",
-						JOptionPane.YES_NO_OPTION);
-
-				if (reply == JOptionPane.YES_OPTION) {
-
-					String position = candidates.get(index).getPosition();
-					switch (position) {
-					case "President":
-						candidates.set(index, new President(name, position));
-						break;
-					case "Vice President":
-						candidates.set(index, new VicePresident(name, position));
-						break;
-					case "Senator":
-						candidates.set(index, new Senators(name, position));
-						break;
-					case "District Representative":
-						candidates.set(index, new DistrictRepresentatives(name, position));
-						break;
-					case "Governor":
-						candidates.set(index, new Governer(name, position));
-						break;
-					case "Mayor":
-						candidates.set(index, new Mayor(name, position));
-						break;
-					}
-				}
-				frame.dispose();
-				OfficerMenuGUI();
-
 			}
 		});
 
@@ -963,10 +898,193 @@ public class Main {
 		frame.setVisible(true);
 	}
 
-	public static void removeCandidateGUI() {
+	public static void candidateEditGUI2(int index) {
+		frame = new JFrame("Edit Candidates");
 		frame.setSize(300, 150);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new GridLayout(3, 2));
+		frame.setResizable(false);
+
+		JLabel nameLabel = new JLabel("Name:");
+		JTextField nameText = new JTextField(20);
+		String[] positions = { "President", "Vice President", "Senator", "District Representative", "Governor",
+				"Mayor" };
+		JComboBox<Object> positionList = new JComboBox<Object>(positions);
+		JButton submitButton = new JButton("Submit");
+		JButton cancelButton = new JButton("Cancel");
+
+		nameText.setText(candidates.get(index).getName());
+
+		submitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String name = nameText.getText();
+				String position = (String) positionList.getSelectedItem();
+
+				// Create a boolean to check if the position is valid, is the same as the
+				// original position, or if the new position is full.
+
+				boolean valid = false;
+				boolean same = false;
+				boolean full = false;
+
+				for (int i = 0; i < positions.length; i++) {
+					if (position.equals(positions[i])) {
+						valid = true;
+					}
+				}
+
+				if (position.equals(candidates.get(index).getPosition())) {
+					same = true;
+				}
+				// (3) President, (3) Vice President, (10) Senators, (10) District
+				// Representatives, (3) Governors, and (3) Mayors.
+				switch (position) {
+				case "President":
+					if (numPresident < 3) {
+						numPresident++;
+					} else {
+						full = true;
+					}
+					break;
+				case "Vice President":
+					if (numVicePresident < 3) {
+						numVicePresident++;
+					} else {
+						full = true;
+					}
+					break;
+				case "Senator":
+					if (numSenator < 10) {
+						numSenator++;
+					} else {
+						full = true;
+					}
+					break;
+				case "District Representative":
+					if (numDistrictRepresentative < 10) {
+						numDistrictRepresentative++;
+					} else {
+						full = true;
+					}
+					break;
+				case "Governor":
+					if (numGovernor < 3) {
+						numGovernor++;
+					} else {
+						full = true;
+					}
+					break;
+				case "Mayor":
+					if (numMayor < 3) {
+						numMayor++;
+					} else {
+						full = true;
+					}
+					break;
+				}
+
+				if (valid == false) {
+					JOptionPane.showMessageDialog(null, "Position is not valid");
+				} else if (same == true) {
+					int reply = JOptionPane.showConfirmDialog(null,
+							"Are you sure you want to edit the candidate's name?\n"
+									+ "This will change the candidate's name to " + name,
+							"Edit Candidate", JOptionPane.YES_NO_OPTION);
+					if (reply == JOptionPane.YES_OPTION) {
+						candidates.get(index).setName(name);
+						JOptionPane.showMessageDialog(null, "Candidate edited");
+						frame.dispose();
+						OfficerMenuGUI();
+					} else {
+						frame.dispose();
+						OfficerMenuGUI();
+					}
+				} else if (full == true) {
+					JOptionPane.showMessageDialog(null, "Position is full");
+					frame.dispose();
+					OfficerMenuGUI();
+				} else {
+					// I prefer showwing the name of the candidate and the position they are
+					// swapping with.
+					int reply = JOptionPane.showConfirmDialog(null,
+							"Are you sure you want to edit the candidate's name and position?\n"
+									+ "This will swap the candidate with " + candidates.get(index).getName()
+									+ " who is running for " + candidates.get(index).getPosition(),
+							"Edit Candidate", JOptionPane.YES_NO_OPTION);
+					if (reply == JOptionPane.YES_OPTION) {
+						switch (candidates.get(index).getPosition()) {
+						case "President":
+							numPresident--;
+							break;
+						case "Vice President":
+							numVicePresident--;
+							break;
+						case "Senator":
+							numSenator--;
+							break;
+						case "District Representative":
+							numDistrictRepresentative--;
+							break;
+						case "Governor":
+							numGovernor--;
+							break;
+						case "Mayor":
+							numMayor--;
+							break;
+						}
+						switch (position) {
+						case "President":
+							candidates.set(index, new President(name, position));
+							break;
+						case "Vice President":
+							candidates.set(index, new VicePresident(name, position));
+							break;
+						case "Senator":
+							candidates.set(index, new Senators(name, position));
+							break;
+						case "District Representative":
+							candidates.set(index, new DistrictRepresentatives(name, position));
+							break;
+						case "Governor":
+							candidates.set(index, new Governer(name, position));
+							break;
+						case "Mayor":
+							candidates.set(index, new Mayor(name, position));
+							break;
+						}
+						JOptionPane.showMessageDialog(null, "Candidate edited");
+						frame.dispose();
+						OfficerMenuGUI();
+					} else {
+						frame.dispose();
+						OfficerMenuGUI();
+					}
+				}
+			}
+		});
+
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				OfficerMenuGUI();
+			}
+		});
+
+		frame.add(nameLabel);
+		frame.add(nameText);
+		frame.add(positionList);
+		frame.add(submitButton);
+		frame.add(cancelButton);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+	}
+
+	public static void removeCandidateGUI() {
+		frame = new JFrame("Remove Candidates");
+		frame.setSize(300, 150);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLayout(new GridLayout(3, 2));
+		frame.setResizable(false);
 
 		JLabel nameLabel = new JLabel("Name:");
 		JTextField nameText = new JTextField(20);
@@ -1038,7 +1156,6 @@ public class Main {
 		frame.add(cancelButton);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-
 	}
 
 	public static void VoterMenuGUI(int index) {
@@ -1103,7 +1220,7 @@ public class Main {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
-	
+
 	public static void DisplayCandidateGUI(int index) {
 		frame = new JFrame("Display Candidate");
 		frame.setSize(300, 150);
@@ -1137,14 +1254,10 @@ public class Main {
 		frame.setVisible(true);
 	}
 
-
-
-	public static void VoteGUI(int index)
-	{
+	public static void VoteGUI(int index) {
 		frame = new JFrame("Vote ");
 		frame.setSize(300, 150);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new GridLayout(3, 2));
 	}
 }
-
