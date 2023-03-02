@@ -1,6 +1,6 @@
 # VotingSystemActivity
 
-//This file will be an overall will be creating an Automated Voting System
+//This file will be creating an Automated Voting System
 
 //HIGH-Level Specifications:<br>
 //-The system should have 3 types of users: Superuser(Admin basically), Officer, and Voter<br>
