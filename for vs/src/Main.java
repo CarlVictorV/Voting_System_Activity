@@ -1366,50 +1366,88 @@ public class Main {
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		JScrollPane scroll = new JScrollPane(panel);
 
+		Object[][] data = new Object[candidates.size()][2];
+		int pres = 0, vp = 3, sen = 6, dist = 16, gov = 26, may = 29;
+
+		for (int i = 0; i < candidates.size(); i++) {
+			String position = candidates.get(i).getPosition();
+
+			switch (position) {
+			case "President":
+				data[pres][1] = candidates.get(i).getName();
+				data[dist][0] = i;
+				pres++;
+				break;
+			case "Vice President":
+				data[vp][1] = candidates.get(i).getName();
+				data[dist][0] = i;
+				vp++;
+				break;
+			case "Senator":
+				data[sen][1] = candidates.get(i).getName();
+				data[dist][0] = i;
+				sen++;
+				break;
+			case "District Representative":
+				data[dist][1] = candidates.get(i).getName();
+				data[dist][0] = i;
+				dist++;
+				break;
+			case "Governor":
+				data[gov][1] = candidates.get(i).getName();
+				data[gov][0] = i;
+				break;
+			case "Mayor":
+				data[may][1] = candidates.get(i).getName();
+				data[may][0] = i;
+				break;
+			}
+		}
+
 		// Create the check boxes.
 		JCheckBox[] president = new JCheckBox[3];
-		president[0] = new JCheckBox("President 1");
-		president[1] = new JCheckBox("President 2");
-		president[2] = new JCheckBox("President 3");
+		president[0] = new JCheckBox(data[0][1].toString());
+		president[1] = new JCheckBox(data[1][1].toString());
+		president[2] = new JCheckBox(data[2][1].toString());
 
 		JCheckBox[] vicePresident = new JCheckBox[3];
-		vicePresident[0] = new JCheckBox("Vice President 1");
-		vicePresident[1] = new JCheckBox("Vice President 2");
-		vicePresident[2] = new JCheckBox("Vice President 3");
+		vicePresident[0] = new JCheckBox(data[3][1].toString());
+		vicePresident[1] = new JCheckBox(data[4][1].toString());
+		vicePresident[2] = new JCheckBox(data[5][1].toString());
 
 		JCheckBox[] senator = new JCheckBox[10];
-		senator[0] = new JCheckBox("Senator 1");
-		senator[1] = new JCheckBox("Senator 2");
-		senator[2] = new JCheckBox("Senator 3");
-		senator[3] = new JCheckBox("Senator 4");
-		senator[4] = new JCheckBox("Senator 5");
-		senator[5] = new JCheckBox("Senator 6");
-		senator[6] = new JCheckBox("Senator 7");
-		senator[7] = new JCheckBox("Senator 8");
-		senator[8] = new JCheckBox("Senator 9");
-		senator[9] = new JCheckBox("Senator 10");
+		senator[0] = new JCheckBox(data[6][1].toString());
+		senator[1] = new JCheckBox(data[7][1].toString());
+		senator[2] = new JCheckBox(data[8][1].toString());
+		senator[3] = new JCheckBox(data[9][1].toString());
+		senator[4] = new JCheckBox(data[10][1].toString());
+		senator[5] = new JCheckBox(data[11][1].toString());
+		senator[6] = new JCheckBox(data[12][1].toString());
+		senator[7] = new JCheckBox(data[13][1].toString());
+		senator[8] = new JCheckBox(data[14][1].toString());
+		senator[9] = new JCheckBox(data[15][1].toString());
 
 		JCheckBox[] districtRepresentative = new JCheckBox[10];
-		districtRepresentative[0] = new JCheckBox("District Representative 1");
-		districtRepresentative[1] = new JCheckBox("District Representative 2");
-		districtRepresentative[2] = new JCheckBox("District Representative 3");
-		districtRepresentative[3] = new JCheckBox("District Representative 4");
-		districtRepresentative[4] = new JCheckBox("District Representative 5");
-		districtRepresentative[5] = new JCheckBox("District Representative 6");
-		districtRepresentative[6] = new JCheckBox("District Representative 7");
-		districtRepresentative[7] = new JCheckBox("District Representative 8");
-		districtRepresentative[8] = new JCheckBox("District Representative 9");
-		districtRepresentative[9] = new JCheckBox("District Representative 10");
+		districtRepresentative[0] = new JCheckBox(data[16][1].toString());
+		districtRepresentative[1] = new JCheckBox(data[17][1].toString());
+		districtRepresentative[2] = new JCheckBox(data[18][1].toString());
+		districtRepresentative[3] = new JCheckBox(data[19][1].toString());
+		districtRepresentative[4] = new JCheckBox(data[20][1].toString());
+		districtRepresentative[5] = new JCheckBox(data[21][1].toString());
+		districtRepresentative[6] = new JCheckBox(data[22][1].toString());
+		districtRepresentative[7] = new JCheckBox(data[23][1].toString());
+		districtRepresentative[8] = new JCheckBox(data[24][1].toString());
+		districtRepresentative[9] = new JCheckBox(data[25][1].toString());
 
 		JCheckBox[] governor = new JCheckBox[3];
-		governor[0] = new JCheckBox("Governor 1");
-		governor[1] = new JCheckBox("Governor 2");
-		governor[2] = new JCheckBox("Governor 3");
+		governor[0] = new JCheckBox(data[26][1].toString());
+		governor[1] = new JCheckBox(data[27][1].toString());
+		governor[2] = new JCheckBox(data[28][1].toString());
 
 		JCheckBox[] mayor = new JCheckBox[3];
-		mayor[0] = new JCheckBox("Mayor 1");
-		mayor[1] = new JCheckBox("Mayor 2");
-		mayor[2] = new JCheckBox("Mayor 3");
+		mayor[0] = new JCheckBox(data[29][1].toString());
+		mayor[1] = new JCheckBox(data[30][1].toString());
+		mayor[2] = new JCheckBox(data[31][1].toString());
 
 		// Add the check boxes to the panel.
 		panel.add(new JLabel("President"));
@@ -1455,6 +1493,7 @@ public class Main {
 
 		// Display the frame.
 		frame.setVisible(true);
+		frame.setLocationRelativeTo(null);
 
 		// Add the action listeners to the buttons.
 		submit.addActionListener(new ActionListener() {
