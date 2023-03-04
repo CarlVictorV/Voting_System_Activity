@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -81,43 +82,45 @@ public class Main {
 		users.add(new Voter("Voter", "cc", "cc", true));
 
 		// Add candidates
-		candidates.add(new President("President", "a", 0));
-		candidates.add(new President("President", "b", 0));
-		candidates.add(new President("President", "c", 0));
+		candidates.add(new President("President", "A President", 0));
+		candidates.add(new President("President", "B President", 0));
+		candidates.add(new President("President", "C President", 0));
 
-		candidates.add(new VicePresident("Vice President", "a", 0));
-		candidates.add(new VicePresident("Vice President", "b", 0));
-		candidates.add(new VicePresident("Vice President", "c", 0));
+		candidates.add(new VicePresident("Vice President", "A Vice President", 0));
+		candidates.add(new VicePresident("Vice President", "B Vice President", 0));
+		candidates.add(new VicePresident("Vice President", "C Vice President", 0));
 
-		candidates.add(new Senators("Senator", "a", 0));
-		candidates.add(new Senators("Senator", "b", 0));
-		candidates.add(new Senators("Senator", "c", 0));
-		candidates.add(new Senators("Senator", "d", 0));
-		candidates.add(new Senators("Senator", "e", 0));
-		candidates.add(new Senators("Senator", "f", 0));
-		candidates.add(new Senators("Senator", "g", 0));
-		candidates.add(new Senators("Senator", "h", 0));
-		candidates.add(new Senators("Senator", "i", 0));
-		candidates.add(new Senators("Senator", "j", 0));
+		// Class Senators
+		candidates.add(new Senators("Senator", "A Senator", 0));
+		candidates.add(new Senators("Senator", "B Senator", 0));
+		candidates.add(new Senators("Senator", "C Senator", 0));
+		candidates.add(new Senators("Senator", "D Senator", 0));
+		candidates.add(new Senators("Senator", "E Senator", 0));
+		candidates.add(new Senators("Senator", "F Senator", 0));
+		candidates.add(new Senators("Senator", "G Senator", 0));
+		candidates.add(new Senators("Senator", "H Senator", 0));
+		candidates.add(new Senators("Senator", "I Senator", 0));
+		candidates.add(new Senators("Senator", "J Senator", 0));
 
-		candidates.add(new DistrictRepresentatives("District Representative", "a", 0));
-		candidates.add(new DistrictRepresentatives("District Representative", "b", 0));
-		candidates.add(new DistrictRepresentatives("District Representative", "c", 0));
-		candidates.add(new DistrictRepresentatives("District Representative", "d", 0));
-		candidates.add(new DistrictRepresentatives("District Representative", "e", 0));
-		candidates.add(new DistrictRepresentatives("District Representative", "f", 0));
-		candidates.add(new DistrictRepresentatives("District Representative", "g", 0));
-		candidates.add(new DistrictRepresentatives("District Representative", "h", 0));
-		candidates.add(new DistrictRepresentatives("District Representative", "i", 0));
-		candidates.add(new DistrictRepresentatives("District Representative", "j", 0));
+		// Class DistrictRepresentative
+		candidates.add(new DistrictRepresentatives("District Representative", "A District Representative", 0));
+		candidates.add(new DistrictRepresentatives("District Representative", "B District Representative", 0));
+		candidates.add(new DistrictRepresentatives("District Representative", "C District Representative", 0));
+		candidates.add(new DistrictRepresentatives("District Representative", "D District Representative", 0));
+		candidates.add(new DistrictRepresentatives("District Representative", "E District Representative", 0));
+		candidates.add(new DistrictRepresentatives("District Representative", "F District Representative", 0));
+		candidates.add(new DistrictRepresentatives("District Representative", "G District Representative", 0));
+		candidates.add(new DistrictRepresentatives("District Representative", "H District Representative", 0));
+		candidates.add(new DistrictRepresentatives("District Representative", "I District Representative", 0));
+		candidates.add(new DistrictRepresentatives("District Representative", "J District Representative", 0));
 
-		candidates.add(new Governer("Governor", "a", 0));
-		candidates.add(new Governer("Governor", "b", 0));
-		candidates.add(new Governer("Governor", "c", 0));
+		candidates.add(new Governer("Governor", "A Governor", 0));
+		candidates.add(new Governer("Governor", "B Governor", 0));
+		candidates.add(new Governer("Governor", "C Governor", 0));
 
-		candidates.add(new Mayor("Mayor", "a", 0));
-		candidates.add(new Mayor("Mayor", "b", 0));
-		candidates.add(new Mayor("Mayor", "c", 0));
+		candidates.add(new Mayor("Mayor", "A Mayor", 0));
+		candidates.add(new Mayor("Mayor", "B Mayor", 0));
+		candidates.add(new Mayor("Mayor", "C Mayor", 0));
 
 		// Set all number of candidates to max
 
@@ -1369,23 +1372,24 @@ public class Main {
 		Object[][] data = new Object[candidates.size()][2];
 		int pres = 0, vp = 3, sen = 6, dist = 16, gov = 26, may = 29;
 
-		for (int i = 0; i < candidates.size(); i++) {
+		for (int i = 0; i < 32; i++) {
 			String position = candidates.get(i).getPosition();
+			System.out.println(candidates.get(i).getName());
 
 			switch (position) {
 			case "President":
 				data[pres][1] = candidates.get(i).getName();
-				data[dist][0] = i;
+				data[pres][0] = i;
 				pres++;
 				break;
 			case "Vice President":
 				data[vp][1] = candidates.get(i).getName();
-				data[dist][0] = i;
+				data[vp][0] = i;
 				vp++;
 				break;
 			case "Senator":
 				data[sen][1] = candidates.get(i).getName();
-				data[dist][0] = i;
+				data[sen][0] = i;
 				sen++;
 				break;
 			case "District Representative":
@@ -1406,48 +1410,48 @@ public class Main {
 
 		// Create the check boxes.
 		JCheckBox[] president = new JCheckBox[3];
-		president[0] = new JCheckBox(data[0][1].toString());
-		president[1] = new JCheckBox(data[1][1].toString());
-		president[2] = new JCheckBox(data[2][1].toString());
+		president[0] = new JCheckBox((String) data[0][1]);
+		president[1] = new JCheckBox((String) data[1][1]);
+		president[2] = new JCheckBox((String) data[2][1]);
 
 		JCheckBox[] vicePresident = new JCheckBox[3];
-		vicePresident[0] = new JCheckBox(data[3][1].toString());
-		vicePresident[1] = new JCheckBox(data[4][1].toString());
-		vicePresident[2] = new JCheckBox(data[5][1].toString());
+		vicePresident[0] = new JCheckBox((String) data[3][1]);
+		vicePresident[1] = new JCheckBox((String) data[4][1]);
+		vicePresident[2] = new JCheckBox((String) data[5][1]);
 
 		JCheckBox[] senator = new JCheckBox[10];
-		senator[0] = new JCheckBox(data[6][1].toString());
-		senator[1] = new JCheckBox(data[7][1].toString());
-		senator[2] = new JCheckBox(data[8][1].toString());
-		senator[3] = new JCheckBox(data[9][1].toString());
-		senator[4] = new JCheckBox(data[10][1].toString());
-		senator[5] = new JCheckBox(data[11][1].toString());
-		senator[6] = new JCheckBox(data[12][1].toString());
-		senator[7] = new JCheckBox(data[13][1].toString());
-		senator[8] = new JCheckBox(data[14][1].toString());
-		senator[9] = new JCheckBox(data[15][1].toString());
+		senator[0] = new JCheckBox((String) data[6][1]);
+		senator[1] = new JCheckBox((String) data[7][1]);
+		senator[2] = new JCheckBox((String) data[8][1]);
+		senator[3] = new JCheckBox((String) data[9][1]);
+		senator[4] = new JCheckBox((String) data[10][1]);
+		senator[5] = new JCheckBox((String) data[11][1]);
+		senator[6] = new JCheckBox((String) data[12][1]);
+		senator[7] = new JCheckBox((String) data[13][1]);
+		senator[8] = new JCheckBox((String) data[14][1]);
+		senator[9] = new JCheckBox((String) data[15][1]);
 
 		JCheckBox[] districtRepresentative = new JCheckBox[10];
-		districtRepresentative[0] = new JCheckBox(data[16][1].toString());
-		districtRepresentative[1] = new JCheckBox(data[17][1].toString());
-		districtRepresentative[2] = new JCheckBox(data[18][1].toString());
-		districtRepresentative[3] = new JCheckBox(data[19][1].toString());
-		districtRepresentative[4] = new JCheckBox(data[20][1].toString());
-		districtRepresentative[5] = new JCheckBox(data[21][1].toString());
-		districtRepresentative[6] = new JCheckBox(data[22][1].toString());
-		districtRepresentative[7] = new JCheckBox(data[23][1].toString());
-		districtRepresentative[8] = new JCheckBox(data[24][1].toString());
-		districtRepresentative[9] = new JCheckBox(data[25][1].toString());
+		districtRepresentative[0] = new JCheckBox((String) data[16][1]);
+		districtRepresentative[1] = new JCheckBox((String) data[17][1]);
+		districtRepresentative[2] = new JCheckBox((String) data[18][1]);
+		districtRepresentative[3] = new JCheckBox((String) data[19][1]);
+		districtRepresentative[4] = new JCheckBox((String) data[20][1]);
+		districtRepresentative[5] = new JCheckBox((String) data[21][1]);
+		districtRepresentative[6] = new JCheckBox((String) data[22][1]);
+		districtRepresentative[7] = new JCheckBox((String) data[23][1]);
+		districtRepresentative[8] = new JCheckBox((String) data[24][1]);
+		districtRepresentative[9] = new JCheckBox((String) data[25][1]);
 
 		JCheckBox[] governor = new JCheckBox[3];
-		governor[0] = new JCheckBox(data[26][1].toString());
-		governor[1] = new JCheckBox(data[27][1].toString());
-		governor[2] = new JCheckBox(data[28][1].toString());
+		governor[0] = new JCheckBox((String) data[26][1]);
+		governor[1] = new JCheckBox((String) data[27][1]);
+		governor[2] = new JCheckBox((String) data[28][1]);
 
 		JCheckBox[] mayor = new JCheckBox[3];
-		mayor[0] = new JCheckBox(data[29][1].toString());
-		mayor[1] = new JCheckBox(data[30][1].toString());
-		mayor[2] = new JCheckBox(data[31][1].toString());
+		mayor[0] = new JCheckBox((String) data[29][1]);
+		mayor[1] = new JCheckBox((String) data[30][1]);
+		mayor[2] = new JCheckBox((String) data[31][1]);
 
 		// Add the check boxes to the panel.
 		panel.add(new JLabel("President"));
