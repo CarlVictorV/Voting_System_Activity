@@ -1344,8 +1344,6 @@ public class Main {
 	 * 
 	 */
 
-
-
 	public static void VoteGUI(int index) {
 		// Time to vote
 		frame = new JFrame("Vote");
@@ -1513,7 +1511,7 @@ public class Main {
 				for (int i = 0; i < vicePresident.length; i++) {
 					if (vicePresident[i].isSelected()) {
 						count++;
-						selected[selectedCount] = (int) data[i+3][0];
+						selected[selectedCount] = (int) data[i + 3][0];
 						selectedCount++;
 					}
 				}
@@ -1527,7 +1525,7 @@ public class Main {
 				for (int i = 0; i < senator.length; i++) {
 					if (senator[i].isSelected()) {
 						count++;
-						selected[selectedCount] = (int) data[i+6][0];
+						selected[selectedCount] = (int) data[i + 6][0];
 						selectedCount++;
 					}
 				}
@@ -1541,7 +1539,7 @@ public class Main {
 				for (int i = 0; i < districtRepresentative.length; i++) {
 					if (districtRepresentative[i].isSelected()) {
 						count++;
-						selected[selectedCount] = (int) data[i+16][0];
+						selected[selectedCount] = (int) data[i + 16][0];
 						selectedCount++;
 					}
 				}
@@ -1556,7 +1554,7 @@ public class Main {
 				for (int i = 0; i < governor.length; i++) {
 					if (governor[i].isSelected()) {
 						count++;
-						selected[selectedCount] = (int) data[i+26][0];
+						selected[selectedCount] = (int) data[i + 26][0];
 						selectedCount++;
 					}
 				}
@@ -1570,7 +1568,7 @@ public class Main {
 				for (int i = 0; i < mayor.length; i++) {
 					if (mayor[i].isSelected()) {
 						count++;
-						selected[selectedCount] = (int) data[i+29][0];
+						selected[selectedCount] = (int) data[i + 29][0];
 						selectedCount++;
 					}
 				}
@@ -1581,7 +1579,9 @@ public class Main {
 
 				// Print the selected candidates.
 				for (int i = 0; i < selected.length; i++) {
-					System.out.println(selected[i] + " " + candidates.get(selected[i]).getName());
+					candidates.get(selected[i]).addVote();
+					System.out.println(
+							candidates.get(selected[i]).getName() + " " + candidates.get(selected[i]).getVotes());
 				}
 
 				// If the voter has voted for all the candidates, display a message.
