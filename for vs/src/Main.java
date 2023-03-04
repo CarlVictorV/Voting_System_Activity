@@ -1500,6 +1500,11 @@ public class Main {
 		frame.add(districtRepresentativePanel);
 		frame.add(governorPanel);
 		frame.add(mayorPanel);
+
+		// Display the window.
+		frame.pack();
+		frame.setVisible(true);
+		frame.setLocationRelativeTo(null);
 	}
 
 }
