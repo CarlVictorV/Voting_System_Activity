@@ -76,6 +76,54 @@ public class Main {
 		users.add(new Voter("Voter", "voter", "voter"));
 		users.add(new Voter("Voter", "cc", "cc", true));
 
+		// Add candidates
+		candidates.add(new President("President", "a", 0));
+		candidates.add(new President("President", "b", 0));
+		candidates.add(new President("President", "c", 0));
+
+		candidates.add(new VicePresident("Vice President", "a", 0));
+		candidates.add(new VicePresident("Vice President", "b", 0));
+		candidates.add(new VicePresident("Vice President", "c", 0));
+
+		candidates.add(new Senators("Senator", "a", 0));
+		candidates.add(new Senators("Senator", "b", 0));
+		candidates.add(new Senators("Senator", "c", 0));
+		candidates.add(new Senators("Senator", "d", 0));
+		candidates.add(new Senators("Senator", "e", 0));
+		candidates.add(new Senators("Senator", "f", 0));
+		candidates.add(new Senators("Senator", "g", 0));
+		candidates.add(new Senators("Senator", "h", 0));
+		candidates.add(new Senators("Senator", "i", 0));
+		candidates.add(new Senators("Senator", "j", 0));
+
+		candidates.add(new DistrictRepresentatives("District Representative", "a", 0));
+		candidates.add(new DistrictRepresentatives("District Representative", "b", 0));
+		candidates.add(new DistrictRepresentatives("District Representative", "c", 0));
+		candidates.add(new DistrictRepresentatives("District Representative", "d", 0));
+		candidates.add(new DistrictRepresentatives("District Representative", "e", 0));
+		candidates.add(new DistrictRepresentatives("District Representative", "f", 0));
+		candidates.add(new DistrictRepresentatives("District Representative", "g", 0));
+		candidates.add(new DistrictRepresentatives("District Representative", "h", 0));
+		candidates.add(new DistrictRepresentatives("District Representative", "i", 0));
+		candidates.add(new DistrictRepresentatives("District Representative", "j", 0));
+
+		candidates.add(new Governer("Governor", "a", 0));
+		candidates.add(new Governer("Governor", "b", 0));
+		candidates.add(new Governer("Governor", "c", 0));
+
+		candidates.add(new Mayor("Mayor", "a", 0));
+		candidates.add(new Mayor("Mayor", "b", 0));
+		candidates.add(new Mayor("Mayor", "c", 0));
+
+		// Set all number of candidates to max
+
+		numPresident = 3;
+		numVicePresident = 3;
+		numSenator = 10;
+		numDistrictRepresentative = 10;
+		numGovernor = 3;
+		numMayor = 3;
+
 	}
 
 	public static void LoginGUI() {
@@ -1175,7 +1223,7 @@ public class Main {
 			JOptionPane.showMessageDialog(null, "The candidate list is not yet ready");
 		}
 
-		if (voted && candidateFull()) {
+		if (!voted && candidateFull()) {
 			JButton voteButton = new JButton("Vote");
 			voteButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -1254,10 +1302,86 @@ public class Main {
 		frame.setVisible(true);
 	}
 
+	/*
+	 * VOTING SYSTEM
+	 * 
+	 * Please select one (1) candidate for President:
+	 * ---------------------------------------------- [ ] President 1 [ ] President
+	 * 2 [ ] President 3
+	 * 
+	 * Please select one (1) candidate for Vice President:
+	 * --------------------------------------------------- [ ] Vice President 1 [ ]
+	 * Vice President 2 [ ] Vice President 3
+	 * 
+	 * Please select up to five (5) candidates for Senator:
+	 * ---------------------------------------------------- [ ] Senator 1 [ ]
+	 * Senator 2 [ ] Senator 3 [ ] Senator 4 [ ] Senator 5 [ ] Senator 6 [ ] Senator
+	 * 7 [ ] Senator 8 [ ] Senator 9 [ ] Senator 10
+	 * 
+	 * Please select up to four (4) candidates for District Representative:
+	 * -------------------------------------------------------------------- [ ]
+	 * District Representative 1 [ ] District Representative 2 [ ] District
+	 * Representative 3 [ ] District Representative 4 [ ] District Representative 5
+	 * [ ] District Representative 6 [ ] District Representative 7 [ ] District
+	 * Representative 8 [ ] District Representative 9 [ ] District Representative 10
+	 * 
+	 * Please select one (1) candidate for Governor:
+	 * --------------------------------------------- [ ] Governor 1 [ ] Governor 2 [
+	 * ] Governor 3
+	 * 
+	 * Please select one (1) candidate for Mayor:
+	 * ------------------------------------------- [ ] Mayor 1 [ ] Mayor 2 [ ] Mayor
+	 * 3
+	 * 
+	 * [SUBMIT] [CANCEL]
+	 * 
+	 */
+
+	// The above is the GUI for the voting system. The GUI should be displayed
+	// after the voter has logged in and clicked the "Vote" button.
+	// The voter can only vote once. If the voter has already voted, the "Vote"
+	// button disappears.
+	// If the candidate list is not yet ready, the "Vote" button disappears.
+	// The voter can only vote if the candidate list is ready.
+	// The voter can only vote for this number of candidates: President - 1, Vice
+	// President - 1, Senator - 5, District Representative - 4, Governor - 1, Mayor
+	// - 1.
+	// The voter can only vote for candidates of the same position once. For
+	// example, the voter can only vote for one (1) candidate for President but can
+	// vote for (5) candidates for Senator and (4) candidates for District
+	// Representative.
+
 	public static void VoteGUI(int index) {
-		frame = new JFrame("Vote ");
+		frame = new JFrame("Vote");
 		frame.setSize(300, 150);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new GridLayout(3, 2));
+
+		String[] columnNames = { "Position", "Name" };
+
+		Object[][] data = new Object[candidates.size()][2];
+
+		for (int i = 0; i < candidates.size(); i++) {
+			data[i][1] = candidates.get(i).getName();
+			data[i][0] = candidates.get(i).getPosition();
+		}
+
+		JTable table = new JTable(data, columnNames);
+		JScrollPane scrollPane = new JScrollPane(table);
+		frame.add(scrollPane, BorderLayout.CENTER);
+
+		JButton backButton = new JButton("Back");
+
+		backButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				VoterMenuGUI(index);
+			}
+		});
+
+		frame.add(backButton);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
 	}
+
 }
