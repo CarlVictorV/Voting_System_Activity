@@ -5,4 +5,8 @@ public class VicePresident extends Candidates {
 		super(name, position);
 	}
 
+	public VicePresident(String role, String name, int i) {
+		super(name,role,i);
+	}
+
 }
