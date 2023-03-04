@@ -1,11 +1,6 @@
 # VotingSystemActivity
-
-
-<head>
-	<title>Voting System Activity</title>
-</head>
 <body>
-	<h1>High-Level Specifications:</h1>
+	<h2>High-Level Specifications:</h2>
 	<ul>
 		<li>The system should have 3 types of users: Superuser, Officer, and Voter.</li>
 		<li>The superuser can only add, remove, and update an officer and voter.</li>
@@ -21,8 +16,7 @@
 		<li>A summary, preferably in a graphical form, of the number of votes per candidate should be available to all users.</li>
 		<li>However, voters can only view the report after they have submitted their vote.</li>
 	</ul>
-
-	<h1>Technical Specifications:</h1>
+	<h2>Technical Specifications:</h2>
 	<ul>
 		<li>Implement the following:</li>
 		<ul>
