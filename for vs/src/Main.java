@@ -4,11 +4,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -73,7 +77,7 @@ public class Main {
 	public static void addDummy() {
 		users.add(new Superuser("Superuser", "a", "a"));
 		users.add(new Officer("Officer", "b", "b"));
-		users.add(new Voter("Voter", "voter", "voter"));
+		users.add(new Voter("Voter", "c", "c"));
 		users.add(new Voter("Voter", "cc", "cc", true));
 
 		// Add candidates
@@ -1351,37 +1355,151 @@ public class Main {
 	// vote for (5) candidates for Senator and (4) candidates for District
 	// Representative.
 
-	public static void VoteGUI(int index) {
+	public static void VoteGUI(int index) {// Time to vote
+
 		frame = new JFrame("Vote");
 		frame.setSize(300, 150);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new GridLayout(3, 2));
 
-		String[] columnNames = { "Position", "Name" };
+		// Create the check boxes.
+		JCheckBox president1 = new JCheckBox("President 1");
+		JCheckBox president2 = new JCheckBox("President 2");
+		JCheckBox president3 = new JCheckBox("President 3");
 
-		Object[][] data = new Object[candidates.size()][2];
+		JCheckBox vicePresident1 = new JCheckBox("Vice President 1");
+		JCheckBox vicePresident2 = new JCheckBox("Vice President 2");
+		JCheckBox vicePresident3 = new JCheckBox("Vice President 3");
 
-		for (int i = 0; i < candidates.size(); i++) {
-			data[i][1] = candidates.get(i).getName();
-			data[i][0] = candidates.get(i).getPosition();
-		}
+		JCheckBox senator1 = new JCheckBox("Senator 1");
+		JCheckBox senator2 = new JCheckBox("Senator 2");
+		JCheckBox senator3 = new JCheckBox("Senator 3");
+		JCheckBox senator4 = new JCheckBox("Senator 4");
+		JCheckBox senator5 = new JCheckBox("Senator 5");
+		JCheckBox senator6 = new JCheckBox("Senator 6");
+		JCheckBox senator7 = new JCheckBox("Senator 7");
+		JCheckBox senator8 = new JCheckBox("Senator 8");
+		JCheckBox senator9 = new JCheckBox("Senator 9");
+		JCheckBox senator10 = new JCheckBox("Senator 10");
 
-		JTable table = new JTable(data, columnNames);
-		JScrollPane scrollPane = new JScrollPane(table);
-		frame.add(scrollPane, BorderLayout.CENTER);
+		JCheckBox districtRepresentative1 = new JCheckBox("District Representative 1");
+		JCheckBox districtRepresentative2 = new JCheckBox("District Representative 2");
+		JCheckBox districtRepresentative3 = new JCheckBox("District Representative 3");
+		JCheckBox districtRepresentative4 = new JCheckBox("District Representative 4");
+		JCheckBox districtRepresentative5 = new JCheckBox("District Representative 5");
+		JCheckBox districtRepresentative6 = new JCheckBox("District Representative 6");
+		JCheckBox districtRepresentative7 = new JCheckBox("District Representative 7");
+		JCheckBox districtRepresentative8 = new JCheckBox("District Representative 8");
+		JCheckBox districtRepresentative9 = new JCheckBox("District Representative 9");
+		JCheckBox districtRepresentative10 = new JCheckBox("District Representative 10");
 
-		JButton backButton = new JButton("Back");
+		JCheckBox governor1 = new JCheckBox("Governor 1");
+		JCheckBox governor2 = new JCheckBox("Governor 2");
+		JCheckBox governor3 = new JCheckBox("Governor 3");
 
-		backButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				VoterMenuGUI(index);
-			}
-		});
+		JCheckBox mayor1 = new JCheckBox("Mayor 1");
+		JCheckBox mayor2 = new JCheckBox("Mayor 2");
+		JCheckBox mayor3 = new JCheckBox("Mayor 3");
 
-		frame.add(backButton);
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
+		// Group the radio buttons.
+		ButtonGroup presidentGroup = new ButtonGroup();
+		presidentGroup.add(president1);
+		presidentGroup.add(president2);
+		presidentGroup.add(president3);
+
+		ButtonGroup vicePresidentGroup = new ButtonGroup();
+		vicePresidentGroup.add(vicePresident1);
+		vicePresidentGroup.add(vicePresident2);
+		vicePresidentGroup.add(vicePresident3);
+
+		ButtonGroup senatorGroup = new ButtonGroup();
+		senatorGroup.add(senator1);
+		senatorGroup.add(senator2);
+		senatorGroup.add(senator3);
+		senatorGroup.add(senator4);
+		senatorGroup.add(senator5);
+		senatorGroup.add(senator6);
+		senatorGroup.add(senator7);
+		senatorGroup.add(senator8);
+		senatorGroup.add(senator9);
+		senatorGroup.add(senator10);
+
+		ButtonGroup districtRepresentativeGroup = new ButtonGroup();
+		districtRepresentativeGroup.add(districtRepresentative1);
+		districtRepresentativeGroup.add(districtRepresentative2);
+		districtRepresentativeGroup.add(districtRepresentative3);
+		districtRepresentativeGroup.add(districtRepresentative4);
+		districtRepresentativeGroup.add(districtRepresentative5);
+		districtRepresentativeGroup.add(districtRepresentative6);
+		districtRepresentativeGroup.add(districtRepresentative7);
+		districtRepresentativeGroup.add(districtRepresentative8);
+		districtRepresentativeGroup.add(districtRepresentative9);
+		districtRepresentativeGroup.add(districtRepresentative10);
+
+		ButtonGroup governorGroup = new ButtonGroup();
+		governorGroup.add(governor1);
+		governorGroup.add(governor2);
+		governorGroup.add(governor3);
+
+		ButtonGroup mayorGroup = new ButtonGroup();
+		mayorGroup.add(mayor1);
+		mayorGroup.add(mayor2);
+		mayorGroup.add(mayor3);
+
+		// Put the radio buttons in a column in a panel.
+		JPanel presidentPanel = new JPanel(new GridLayout(0, 1));
+		presidentPanel.add(president1);
+		presidentPanel.add(president2);
+		presidentPanel.add(president3);
+
+		JPanel vicePresidentPanel = new JPanel(new GridLayout(0, 1));
+		vicePresidentPanel.add(vicePresident1);
+		vicePresidentPanel.add(vicePresident2);
+		vicePresidentPanel.add(vicePresident3);
+
+		JPanel senatorPanel = new JPanel(new GridLayout(0, 1));
+		senatorPanel.add(senator1);
+		senatorPanel.add(senator2);
+		senatorPanel.add(senator3);
+		senatorPanel.add(senator4);
+		senatorPanel.add(senator5);
+		senatorPanel.add(senator6);
+		senatorPanel.add(senator7);
+		senatorPanel.add(senator8);
+		senatorPanel.add(senator9);
+		senatorPanel.add(senator10);
+
+		JPanel districtRepresentativePanel = new JPanel(new GridLayout(0, 1));
+		districtRepresentativePanel.add(districtRepresentative1);
+		districtRepresentativePanel.add(districtRepresentative2);
+		districtRepresentativePanel.add(districtRepresentative3);
+		districtRepresentativePanel.add(districtRepresentative4);
+		districtRepresentativePanel.add(districtRepresentative5);
+		districtRepresentativePanel.add(districtRepresentative6);
+		districtRepresentativePanel.add(districtRepresentative7);
+		districtRepresentativePanel.add(districtRepresentative8);
+		districtRepresentativePanel.add(districtRepresentative9);
+		districtRepresentativePanel.add(districtRepresentative10);
+
+		JPanel governorPanel = new JPanel(new GridLayout(0, 1));
+		governorPanel.add(governor1);
+		governorPanel.add(governor2);
+		governorPanel.add(governor3);
+
+		JPanel mayorPanel = new JPanel(new GridLayout(0, 1));
+		mayorPanel.add(mayor1);
+		mayorPanel.add(mayor2);
+		mayorPanel.add(mayor3);
+
+		// Put the panels in this panel, labels on left,
+		// radio buttons on right.
+		frame.setLayout(new GridLayout(0, 1));
+		frame.add(presidentPanel);
+		frame.add(vicePresidentPanel);
+		frame.add(senatorPanel);
+		frame.add(districtRepresentativePanel);
+		frame.add(governorPanel);
+		frame.add(mayorPanel);
 	}
 
 }
