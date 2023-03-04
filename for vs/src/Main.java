@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.BoxLayout;
-import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -1374,7 +1373,6 @@ public class Main {
 
 		for (int i = 0; i < 32; i++) {
 			String position = candidates.get(i).getPosition();
-			System.out.println(candidates.get(i).getName());
 
 			switch (position) {
 			case "President":
@@ -1400,10 +1398,12 @@ public class Main {
 			case "Governor":
 				data[gov][1] = candidates.get(i).getName();
 				data[gov][0] = i;
+				gov++;
 				break;
 			case "Mayor":
 				data[may][1] = candidates.get(i).getName();
 				data[may][0] = i;
+				may++;
 				break;
 			}
 		}
