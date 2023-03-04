@@ -1233,7 +1233,7 @@ public class Main {
 			JButton voteButton = new JButton("Vote");
 			voteButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					// display vote form
+					frame.dispose();
 					VoteGUI(index);
 				}
 			});
