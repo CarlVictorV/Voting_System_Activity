@@ -1344,19 +1344,7 @@ public class Main {
 	 * 
 	 */
 
-	// The above is the GUI for the voting system. The GUI should be displayed
-	// after the voter has logged in and clicked the "Vote" button.
-	// The voter can only vote once. If the voter has already voted, the "Vote"
-	// button disappears.
-	// If the candidate list is not yet ready, the "Vote" button disappears.
-	// The voter can only vote if the candidate list is ready.
-	// The voter can only vote for this number of candidates: President - 1, Vice
-	// President - 1, Senator - 5, District Representative - 4, Governor - 1, Mayor
-	// - 1.
-	// The voter can only vote for candidates of the same position once. For
-	// example, the voter can only vote for one (1) candidate for President but can
-	// vote for (5) candidates for Senator and (4) candidates for District
-	// Representative.
+
 
 	public static void VoteGUI(int index) {
 		// Time to vote
@@ -1525,7 +1513,7 @@ public class Main {
 				for (int i = 0; i < vicePresident.length; i++) {
 					if (vicePresident[i].isSelected()) {
 						count++;
-						selected[selectedCount] = (int) data[i][0];
+						selected[selectedCount] = (int) data[i+3][0];
 						selectedCount++;
 					}
 				}
@@ -1539,7 +1527,7 @@ public class Main {
 				for (int i = 0; i < senator.length; i++) {
 					if (senator[i].isSelected()) {
 						count++;
-						selected[selectedCount] = (int) data[i][0];
+						selected[selectedCount] = (int) data[i+6][0];
 						selectedCount++;
 					}
 				}
@@ -1553,13 +1541,13 @@ public class Main {
 				for (int i = 0; i < districtRepresentative.length; i++) {
 					if (districtRepresentative[i].isSelected()) {
 						count++;
-						selected[selectedCount] = (int) data[i][0];
+						selected[selectedCount] = (int) data[i+16][0];
 						selectedCount++;
 					}
 				}
 				if (count != 5) {
 					JOptionPane.showMessageDialog(null,
-							"Please select four (5) candidates for District Representative.");
+							"Please select five (5) candidates for District Representative.");
 					return;
 				}
 
@@ -1568,7 +1556,7 @@ public class Main {
 				for (int i = 0; i < governor.length; i++) {
 					if (governor[i].isSelected()) {
 						count++;
-						selected[selectedCount] = (int) data[i][0];
+						selected[selectedCount] = (int) data[i+26][0];
 						selectedCount++;
 					}
 				}
@@ -1582,7 +1570,7 @@ public class Main {
 				for (int i = 0; i < mayor.length; i++) {
 					if (mayor[i].isSelected()) {
 						count++;
-						selected[selectedCount] = (int) data[i][0];
+						selected[selectedCount] = (int) data[i+29][0];
 						selectedCount++;
 					}
 				}
