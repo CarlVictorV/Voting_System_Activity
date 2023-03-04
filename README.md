@@ -25,8 +25,9 @@
 			<li>Polymorphism</li>
 			<li>Constructor Overloading</li>
 			<li>GUI (required)</li>
+			<li>Upload your codes in Javadoc format.</li>
 		</ul>
-		<li>Upload your codes in Javadoc format.</li>
 	</ul>
+<p>Good luck with your project!</p>
 </body>
 
