@@ -41,4 +41,8 @@ public class Candidates {
 	public void setPosition(String position) {
 		this.position = position;
 	}
+
+	public void addVote() {
+		this.votes++;
+	}
 }

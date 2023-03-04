@@ -1325,7 +1325,7 @@ public class Main {
 	 * Senator 2 [ ] Senator 3 [ ] Senator 4 [ ] Senator 5 [ ] Senator 6 [ ] Senator
 	 * 7 [ ] Senator 8 [ ] Senator 9 [ ] Senator 10
 	 * 
-	 * Please select up to four (4) candidates for District Representative:
+	 * Please select up to four (5) candidates for District Representative:
 	 * -------------------------------------------------------------------- [ ]
 	 * District Representative 1 [ ] District Representative 2 [ ] District
 	 * Representative 3 [ ] District Representative 4 [ ] District Representative 5
@@ -1504,9 +1504,15 @@ public class Main {
 			public void actionPerformed(ActionEvent e) {
 				// Check if the voter has voted for the president.
 				int count = 0;
+				// make an int array to store the index of the selected 14 candidates
+				int[] selected = new int[14];
+				int selectedCount = 0;
+
 				for (int i = 0; i < president.length; i++) {
 					if (president[i].isSelected()) {
 						count++;
+						selected[selectedCount] = (int) data[i][0];
+						selectedCount++;
 					}
 				}
 				if (count != 1) {
@@ -1519,6 +1525,8 @@ public class Main {
 				for (int i = 0; i < vicePresident.length; i++) {
 					if (vicePresident[i].isSelected()) {
 						count++;
+						selected[selectedCount] = (int) data[i][0];
+						selectedCount++;
 					}
 				}
 				if (count != 1) {
@@ -1531,6 +1539,8 @@ public class Main {
 				for (int i = 0; i < senator.length; i++) {
 					if (senator[i].isSelected()) {
 						count++;
+						selected[selectedCount] = (int) data[i][0];
+						selectedCount++;
 					}
 				}
 				if (count != 5) {
@@ -1543,11 +1553,13 @@ public class Main {
 				for (int i = 0; i < districtRepresentative.length; i++) {
 					if (districtRepresentative[i].isSelected()) {
 						count++;
+						selected[selectedCount] = (int) data[i][0];
+						selectedCount++;
 					}
 				}
-				if (count != 4) {
+				if (count != 5) {
 					JOptionPane.showMessageDialog(null,
-							"Please select four (4) candidates for District Representative.");
+							"Please select four (5) candidates for District Representative.");
 					return;
 				}
 
@@ -1556,6 +1568,8 @@ public class Main {
 				for (int i = 0; i < governor.length; i++) {
 					if (governor[i].isSelected()) {
 						count++;
+						selected[selectedCount] = (int) data[i][0];
+						selectedCount++;
 					}
 				}
 				if (count != 1) {
@@ -1568,6 +1582,8 @@ public class Main {
 				for (int i = 0; i < mayor.length; i++) {
 					if (mayor[i].isSelected()) {
 						count++;
+						selected[selectedCount] = (int) data[i][0];
+						selectedCount++;
 					}
 				}
 				if (count != 1) {
@@ -1575,11 +1591,19 @@ public class Main {
 					return;
 				}
 
+				// Print the selected candidates.
+				for (int i = 0; i < selected.length; i++) {
+					System.out.println(selected[i] + " " + candidates.get(selected[i]).getName());
+				}
+
 				// If the voter has voted for all the candidates, display a message.
 				JOptionPane.showMessageDialog(null, "Thank you for voting!");
 
 				// Close the frame.
 				frame.dispose();
+
+				// Make the voter voted.
+				((Voter) users.get(index)).setVoted(true);
 
 				// Open the voter menu.
 				VoterMenuGUI(index);
