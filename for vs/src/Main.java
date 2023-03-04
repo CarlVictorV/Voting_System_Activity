@@ -28,7 +28,6 @@ public class Main {
 	public static int numDistrictRepresentative = 0;
 	public static int numGovernor = 0;
 	public static int numMayor = 0;
-	public static int numVoter = 0;
 	public static int numVoterVoted = 0;
 	public static JFrame frame;
 	public static JLabel userLabel;
@@ -1586,6 +1585,7 @@ public class Main {
 
 				// If the voter has voted for all the candidates, display a message.
 				JOptionPane.showMessageDialog(null, "Thank you for voting!");
+				numVoterVoted++;
 
 				// Close the frame.
 				frame.dispose();
