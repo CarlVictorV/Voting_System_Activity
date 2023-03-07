@@ -1365,41 +1365,6 @@ public class Main {
 		frame.setVisible(true);
 	}
 
-	/*
-	 * VOTING SYSTEM
-	 * 
-	 * Please select one (1) candidate for President:
-	 * ---------------------------------------------- [ ] President 1 [ ] President
-	 * 2 [ ] President 3
-	 * 
-	 * Please select one (1) candidate for Vice President:
-	 * --------------------------------------------------- [ ] Vice President 1 [ ]
-	 * Vice President 2 [ ] Vice President 3
-	 * 
-	 * Please select up to five (5) candidates for Senator:
-	 * ---------------------------------------------------- [ ] Senator 1 [ ]
-	 * Senator 2 [ ] Senator 3 [ ] Senator 4 [ ] Senator 5 [ ] Senator 6 [ ] Senator
-	 * 7 [ ] Senator 8 [ ] Senator 9 [ ] Senator 10
-	 * 
-	 * Please select up to four (5) candidates for District Representative:
-	 * -------------------------------------------------------------------- [ ]
-	 * District Representative 1 [ ] District Representative 2 [ ] District
-	 * Representative 3 [ ] District Representative 4 [ ] District Representative 5
-	 * [ ] District Representative 6 [ ] District Representative 7 [ ] District
-	 * Representative 8 [ ] District Representative 9 [ ] District Representative 10
-	 * 
-	 * Please select one (1) candidate for Governor:
-	 * --------------------------------------------- [ ] Governor 1 [ ] Governor 2 [
-	 * ] Governor 3
-	 * 
-	 * Please select one (1) candidate for Mayor:
-	 * ------------------------------------------- [ ] Mayor 1 [ ] Mayor 2 [ ] Mayor
-	 * 3
-	 * 
-	 * [SUBMIT] [CANCEL]
-	 * 
-	 */
-
 	public static void VoteGUI(int index) {
 		// Time to vote
 		frame = new JFrame("Vote");
