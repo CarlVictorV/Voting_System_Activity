@@ -10,3 +10,4 @@ public class Mayor extends Candidates {
 	}
 
 }
+//Finished prototype.

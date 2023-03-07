@@ -10,3 +10,4 @@ public class Senators extends Candidates{
 	}
 
 }
+//Finished prototype.

@@ -10,3 +10,4 @@ public class DistrictRepresentatives extends Candidates {
 	}
 
 }
+//Finished prototype.

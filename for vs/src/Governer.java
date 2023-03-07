@@ -10,3 +10,4 @@ public class Governer extends Candidates {
 	}
 
 }
+//Finished prototype.

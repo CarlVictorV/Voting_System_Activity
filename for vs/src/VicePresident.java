@@ -10,3 +10,4 @@ public class VicePresident extends Candidates {
 	}
 
 }
+//Finished prototype.

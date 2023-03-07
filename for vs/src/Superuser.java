@@ -6,3 +6,4 @@ public class Superuser extends User {
 	}
 
 }
+//Finished prototype.

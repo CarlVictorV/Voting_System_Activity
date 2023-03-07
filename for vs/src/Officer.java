@@ -6,3 +6,4 @@ public class Officer extends User {
 	}
 
 }
+//Finished prototype.

@@ -46,3 +46,4 @@ public class Candidates {
 		this.votes++;
 	}
 }
+//Finished prototype.
