@@ -46,6 +46,7 @@ public class Main {
 	public static JLabel success;
 	public static JLabel label;
 
+	// Main Method
 	public static void main(String[] args) {
 
 		// Add dummy data
@@ -55,7 +56,6 @@ public class Main {
 
 	}
 
-	// voters
 
 
 	
@@ -77,6 +77,39 @@ public class Main {
 		} else {
 			return false;
 		}
+	}
+
+	public static void DisplayCandidateGUI(int index) {
+		frame = new JFrame("Display Candidate");
+		frame.setSize(300, 150);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLayout(new GridLayout(3, 2));
+
+		String[] columnNames = { "Position", "Name" };
+
+		Object[][] data = new Object[candidates.size()][2];
+
+		for (int i = 0; i < candidates.size(); i++) {
+			data[i][1] = candidates.get(i).getName();
+			data[i][0] = candidates.get(i).getPosition();
+		}
+
+		JTable table = new JTable(data, columnNames);
+		JScrollPane scrollPane = new JScrollPane(table);
+		frame.add(scrollPane, BorderLayout.CENTER);
+
+		JButton backButton = new JButton("Back");
+
+		backButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				VoterMenuGUI(index);
+			}
+		});
+
+		frame.add(backButton);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
 	}
 
 	public static void voteSummaryGUI() {
@@ -206,6 +239,7 @@ public class Main {
 		frame.setVisible(true);
 	}
 
+	// Super User Menu GUI
 	public static void SuperUserMenuGUI()// ADD USER SPECICALLY OFFICER AND VOTER
 	{
 		frame = new JFrame("Super User Menu");
@@ -653,6 +687,8 @@ public class Main {
 		frame.setVisible(true);
 	}
 
+
+//		Officer Menu GUI
 	public static void OfficerMenuGUI() {
 		frame = new JFrame("Officer Menu");
 		frame.setSize(300, 150);
@@ -1220,6 +1256,7 @@ public class Main {
 		frame.setVisible(true);
 	}
 
+	// Voter Menu
 	public static void VoterMenuGUI(int index) {
 		frame = new JFrame("Voter Menu");
 		frame.setSize(300, 150);
@@ -1280,39 +1317,6 @@ public class Main {
 
 		frame.add(displayCandidateButton);
 		frame.add(logoutButton);
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
-	}
-
-	public static void DisplayCandidateGUI(int index) {
-		frame = new JFrame("Display Candidate");
-		frame.setSize(300, 150);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLayout(new GridLayout(3, 2));
-
-		String[] columnNames = { "Position", "Name" };
-
-		Object[][] data = new Object[candidates.size()][2];
-
-		for (int i = 0; i < candidates.size(); i++) {
-			data[i][1] = candidates.get(i).getName();
-			data[i][0] = candidates.get(i).getPosition();
-		}
-
-		JTable table = new JTable(data, columnNames);
-		JScrollPane scrollPane = new JScrollPane(table);
-		frame.add(scrollPane, BorderLayout.CENTER);
-
-		JButton backButton = new JButton("Back");
-
-		backButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				VoterMenuGUI(index);
-			}
-		});
-
-		frame.add(backButton);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
