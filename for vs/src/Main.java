@@ -112,6 +112,7 @@ public class Main {
 		frame.setVisible(true);
 	}
 
+	// Last GUI to finnaly be added and to finish the program prototype
 	public static void voteSummaryGUI() {
 	}
 
