@@ -1,10 +1,12 @@
+//Necessary
+import java.util.ArrayList;
+import java.util.Scanner;
+
+//For GUI. Can be added to a new GUI Class
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -19,16 +21,21 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 public class Main {
-	static ArrayList<User> users = new ArrayList<User>();
-	static ArrayList<Candidates> candidates = new ArrayList<Candidates>();
-	public static Scanner input = new Scanner(System.in);
-	public static int numPresident = 0;
-	public static int numVicePresident = 0;
-	public static int numSenator = 0;
-	public static int numDistrictRepresentative = 0;
-	public static int numGovernor = 0;
-	public static int numMayor = 0;
-	public static int numVoterVoted = 0;
+
+	// Array List
+	static ArrayList<User> users = new ArrayList<User>(); // Can be added to the User super class
+	static ArrayList<Candidates> candidates = new ArrayList<Candidates>(); // Can be added to the candidaetes super class
+	// Scanner 
+	public static Scanner input = new Scanner(System.in); // This should stay here
+	// Counter
+	public static int numPresident = 0; // I think its preferable to stay here or we can add this as a static variable to the class
+	public static int numVicePresident = 0; // I think its preferable to stay here or we can add this as a static variable to the class
+	public static int numSenator = 0; // I think its preferable to stay here or we can add this as a static variable to the class
+	public static int numDistrictRepresentative = 0; // I think its preferable to stay here or we can add this as a static variable to the class
+	public static int numGovernor = 0; // I think its preferable to stay here or we can add this as a static variable to the class
+	public static int numMayor = 0; // I think its preferable to stay here or we can add this as a static variable to the class
+	public static int numVoterVoted = 0; // I think its preferable to stay here or we can add this as a static variable to the class
+	// GUI Variables. Can be put into a GUI class later
 	public static JFrame frame;
 	public static JLabel userLabel;
 	public static JLabel passwordLabel;
@@ -41,14 +48,26 @@ public class Main {
 
 	public static void main(String[] args) {
 
+		// Add dummy data
 		addDummy();
-
+		// Start of the program that can be added to the GUI later
 		LoginGUI();
 
 	}
 
 	// voters
-	public static void voteCandidates() {
+
+
+	
+
+	// Global Checker/GUI
+	public static boolean candidateVoted() {
+		for (int i = 0; i < candidates.size(); i++) {
+			if (candidates.get(i).getVotes() > 0) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public static boolean candidateFull() {
@@ -58,16 +77,6 @@ public class Main {
 		} else {
 			return false;
 		}
-	}
-
-	// Global
-	public static boolean candidateVoted() {
-		for (int i = 0; i < candidates.size(); i++) {
-			if (candidates.get(i).getVotes() > 0) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	public static void voteSummaryGUI() {
