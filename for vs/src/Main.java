@@ -1,3 +1,4 @@
+
 //Necessary
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -24,17 +25,25 @@ public class Main {
 
 	// Array List
 	static ArrayList<User> users = new ArrayList<User>(); // Can be added to the User super class
-	static ArrayList<Candidates> candidates = new ArrayList<Candidates>(); // Can be added to the candidaetes super class
-	// Scanner 
+	static ArrayList<Candidates> candidates = new ArrayList<Candidates>(); // Can be added to the candidaetes super
+																			// class
+	// Scanner
 	public static Scanner input = new Scanner(System.in); // This should stay here
 	// Counter
-	public static int numPresident = 0; // I think its preferable to stay here or we can add this as a static variable to the class
-	public static int numVicePresident = 0; // I think its preferable to stay here or we can add this as a static variable to the class
-	public static int numSenator = 0; // I think its preferable to stay here or we can add this as a static variable to the class
-	public static int numDistrictRepresentative = 0; // I think its preferable to stay here or we can add this as a static variable to the class
-	public static int numGovernor = 0; // I think its preferable to stay here or we can add this as a static variable to the class
-	public static int numMayor = 0; // I think its preferable to stay here or we can add this as a static variable to the class
-	public static int numVoterVoted = 0; // I think its preferable to stay here or we can add this as a static variable to the class
+	public static int numPresident = 0; // I think its preferable to stay here or we can add this as a static variable
+										// to the class
+	public static int numVicePresident = 0; // I think its preferable to stay here or we can add this as a static
+											// variable to the class
+	public static int numSenator = 0; // I think its preferable to stay here or we can add this as a static variable
+										// to the class
+	public static int numDistrictRepresentative = 0; // I think its preferable to stay here or we can add this as a
+														// static variable to the class
+	public static int numGovernor = 0; // I think its preferable to stay here or we can add this as a static variable
+										// to the class
+	public static int numMayor = 0; // I think its preferable to stay here or we can add this as a static variable
+									// to the class
+	public static int numVoterVoted = 0; // I think its preferable to stay here or we can add this as a static variable
+											// to the class
 	// GUI Variables. Can be put into a GUI class later
 	public static JFrame frame;
 	public static JLabel userLabel;
@@ -55,10 +64,6 @@ public class Main {
 		LoginGUI();
 
 	}
-
-
-
-	
 
 	// Global Checker/GUI
 	public static boolean candidateVoted() {
@@ -113,7 +118,45 @@ public class Main {
 	}
 
 	// Last GUI to finnaly be added and to finish the program prototype
-	public static void voteSummaryGUI() {
+	public static void voteSummaryGUI(int index) {// This is the last GUI to be added
+		frame = new JFrame("Vote Summary");
+		frame.setSize(300, 150);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLayout(new GridLayout(3, 2));
+
+		String[] columnNames = { "Position", "Name", "Votes" };
+
+		Object[][] data = new Object[candidates.size()][3];
+
+		for (int i = 0; i < candidates.size(); i++) {
+			data[i][1] = candidates.get(i).getName();
+			data[i][0] = candidates.get(i).getPosition();
+			data[i][2] = candidates.get(i).getVotes();
+		}
+
+		JTable table = new JTable(data, columnNames);
+		JScrollPane scrollPane = new JScrollPane(table);
+		frame.add(scrollPane, BorderLayout.CENTER);
+
+		JButton backButton = new JButton("Back");
+
+		backButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				if (index > 0) {
+					VoterMenuGUI(index);
+				} else if (index == -1) {
+					SuperUserMenuGUI();
+				} else {
+					OfficerMenuGUI();
+				}
+
+			}
+		});
+
+		frame.add(backButton);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
 	}
 
 	public static void addDummy() {
@@ -293,7 +336,7 @@ public class Main {
 				if (candidateVoted() == true) {
 					// display vote summary form
 					frame.dispose();
-					voteSummaryGUI();
+					voteSummaryGUI(-1);
 				} else {
 					JOptionPane.showMessageDialog(null, "No candidate has been voted yet");
 				}
@@ -688,7 +731,6 @@ public class Main {
 		frame.setVisible(true);
 	}
 
-
 //		Officer Menu GUI
 	public static void OfficerMenuGUI() {
 		frame = new JFrame("Officer Menu");
@@ -751,7 +793,7 @@ public class Main {
 					JOptionPane.showMessageDialog(null, "Voting has not started");
 				} else {
 					frame.dispose();
-					voteSummaryGUI();
+					voteSummaryGUI(-3);
 				}
 			}
 		});
@@ -1295,7 +1337,8 @@ public class Main {
 
 				public void actionPerformed(ActionEvent e) {
 					// display results form
-					// DisplayResultsGUI();
+					frame.dispose();
+					voteSummaryGUI(index);
 				}
 			});
 			frame.add(displayResultsButton);
