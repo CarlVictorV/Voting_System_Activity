@@ -3,27 +3,22 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Scanner;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
 public class GUI extends JFrame {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-
+	private static final long serialVersionUID = -7073945066991264871L;
 	public static JFrame frame;
 	public static JLabel userLabel;
 	public static JLabel passwordLabel;
@@ -238,5 +233,14 @@ public class GUI extends JFrame {
 		} else {
 			return false;
 		}
+	}
+
+	protected static boolean nameExists(String name) {
+		for (int i = 0; i < candidates.size(); i++) {
+			if (candidates.get(i).getName().equals(name)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

@@ -1,4 +1,3 @@
-
 public class Mayor extends Candidates {
 
 	public Mayor(String name, String position) {
@@ -6,8 +5,7 @@ public class Mayor extends Candidates {
 	}
 
 	public Mayor(String role, String name, int i) {
-		super(name,role,i);
+		super(name, role, i);
 	}
 
 }
-//Finished prototype.

@@ -22,7 +22,6 @@ public class SuperGUI extends GUI {
 
 	public SuperGUI(ArrayList<User> users, ArrayList<Candidates> candidates) {
 		super(users, candidates);
-		// TODO Auto-generated constructor stub
 	}
 
 	public static void SuperUserMenuGUI() {

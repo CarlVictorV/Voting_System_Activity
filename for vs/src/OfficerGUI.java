@@ -90,7 +90,7 @@ public class OfficerGUI extends GUI {
 		logoutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				LoginGUI();
+				GUI.LoginGUI();
 			}
 		});
 
@@ -122,106 +122,116 @@ public class OfficerGUI extends GUI {
 			public void actionPerformed(ActionEvent e) {
 				String name = nameText.getText();
 				String position = positionList.getSelectedItem().toString();
-				switch (position) {
-				case "President":
-					if (numPresident != 3) {
 
-						int reply = JOptionPane.showConfirmDialog(null, "Name: " + name + " Position: " + position,
-								"Add Candidate?", JOptionPane.YES_NO_OPTION);
+				//Make sure the name is not empty and the name isn't already in the list
+				if (name.equals("")) {
+					JOptionPane.showMessageDialog(null, "Name cannot be empty");
+				} else if (nameExists(name)) {
+					JOptionPane.showMessageDialog(null, "Name already exists");
+				} else {
+					switch (position) {
+					case "President":
+						if (numPresident != 3) {
 
-						if (reply == JOptionPane.YES_OPTION) {
-							candidates.add(new President(name, position));
-							numPresident++;
+							int reply = JOptionPane.showConfirmDialog(null, "Name: " + name + " Position: " + position,
+									"Add Candidate?", JOptionPane.YES_NO_OPTION);
+
+							if (reply == JOptionPane.YES_OPTION) {
+								candidates.add(new President(name, position));
+								numPresident++;
+							} else {
+								frame.dispose();
+								OfficerMenuGUI();
+							}
 						} else {
-							frame.dispose();
-							OfficerMenuGUI();
+							JOptionPane.showMessageDialog(null, "President limit reached");
 						}
-					} else {
-						JOptionPane.showMessageDialog(null, "President limit reached");
-					}
-					break;
-				case "Vice President":
-					if (numVicePresident != 3) {
-						int reply = JOptionPane.showConfirmDialog(null, "Name: " + name + " Position: " + position,
-								"Add Candidate?", JOptionPane.YES_NO_OPTION);
+						break;
+					case "Vice President":
+						if (numVicePresident != 3) {
+							int reply = JOptionPane.showConfirmDialog(null, "Name: " + name + " Position: " + position,
+									"Add Candidate?", JOptionPane.YES_NO_OPTION);
 
-						if (reply == JOptionPane.YES_OPTION) {
-							candidates.add(new VicePresident(name, position));
-							numVicePresident++;
+							if (reply == JOptionPane.YES_OPTION) {
+								candidates.add(new VicePresident(name, position));
+								numVicePresident++;
+							} else {
+								frame.dispose();
+								OfficerMenuGUI();
+							}
 						} else {
-							frame.dispose();
-							OfficerMenuGUI();
+							JOptionPane.showMessageDialog(null, "Vice President limit reached");
 						}
-					} else {
-						JOptionPane.showMessageDialog(null, "Vice President limit reached");
-					}
 
-					break;
-				case "Senator":
-					if (numSenator != 10) {
-						int reply = JOptionPane.showConfirmDialog(null, "Name: " + name + " Position: " + position,
-								"Add Candidate?", JOptionPane.YES_NO_OPTION);
+						break;
+					case "Senator":
+						if (numSenator != 10) {
+							int reply = JOptionPane.showConfirmDialog(null, "Name: " + name + " Position: " + position,
+									"Add Candidate?", JOptionPane.YES_NO_OPTION);
 
-						if (reply == JOptionPane.YES_OPTION) {
-							candidates.add(new Senators(name, position));
-							numSenator++;
+							if (reply == JOptionPane.YES_OPTION) {
+								candidates.add(new Senators(name, position));
+								numSenator++;
+							} else {
+								frame.dispose();
+								OfficerMenuGUI();
+							}
 						} else {
-							frame.dispose();
-							OfficerMenuGUI();
+							JOptionPane.showMessageDialog(null, "Senator limit reached");
 						}
-					} else {
-						JOptionPane.showMessageDialog(null, "Senator limit reached");
-					}
-					break;
-				case "District Representative":
-					if (numDistrictRepresentative != 10) {
-						int reply = JOptionPane.showConfirmDialog(null, "Name: " + name + " Position: " + position,
-								"Add Candidate?", JOptionPane.YES_NO_OPTION);
+						break;
+					case "District Representative":
+						if (numDistrictRep != 10) {
+							int reply = JOptionPane.showConfirmDialog(null, "Name: " + name + " Position: " + position,
+									"Add Candidate?", JOptionPane.YES_NO_OPTION);
 
-						if (reply == JOptionPane.YES_OPTION) {
-							candidates.add(new DistrictRepresentatives(name, position));
-							numDistrictRepresentative++;
+							if (reply == JOptionPane.YES_OPTION) {
+								candidates.add(new DistrictRepresentative(name, position));
+								numDistrictRep++;
+							} else {
+								frame.dispose();
+								OfficerMenuGUI();
+							}
 						} else {
-							frame.dispose();
-							OfficerMenuGUI();
+							JOptionPane.showMessageDialog(null, "District Representative limit reached");
 						}
-					} else {
-						JOptionPane.showMessageDialog(null, "District Representative limit reached");
-					}
-					break;
-				case "Governor":
-					if (numGovernor != 3) {
-						int reply = JOptionPane.showConfirmDialog(null, "Name: " + name + " Position: " + position,
-								"Add Candidate?", JOptionPane.YES_NO_OPTION);
+						break;
+					case "Governor":
+						if (numGovernor != 1) {
+							int reply = JOptionPane.showConfirmDialog(null, "Name: " + name + " Position: " + position,
+									"Add Candidate?", JOptionPane.YES_NO_OPTION);
 
-						if (reply == JOptionPane.YES_OPTION) {
-							candidates.add(new Governer(name, position));
-							numGovernor++;
+							if (reply == JOptionPane.YES_OPTION) {
+								candidates.add(new Governor(name, position));
+								numGovernor++;
+							} else {
+								frame.dispose();
+								OfficerMenuGUI();
+							}
 						} else {
-							frame.dispose();
-							OfficerMenuGUI();
+							JOptionPane.showMessageDialog(null, "Governor limit reached");
 						}
-					} else {
-						JOptionPane.showMessageDialog(null, "Governor limit reached");
-					}
-					break;
-				case "Mayor":
-					if (numMayor != 3) {
-						int reply = JOptionPane.showConfirmDialog(null, "Name: " + name + " Position: " + position,
-								"Add Candidate?", JOptionPane.YES_NO_OPTION);
+						break;
 
-						if (reply == JOptionPane.YES_OPTION) {
-							candidates.add(new Mayor(name, position));
-							numMayor++;
+					case "Mayor":
+						if (numMayor != 1) {
+							int reply = JOptionPane.showConfirmDialog(null, "Name: " + name + " Position: " + position,
+									"Add Candidate?", JOptionPane.YES_NO_OPTION);
+
+							if (reply == JOptionPane.YES_OPTION) {
+								candidates.add(new Mayor(name, position));
+								numMayor++;
+							} else {
+								frame.dispose();
+								OfficerMenuGUI();
+							}
 						} else {
-							frame.dispose();
-							OfficerMenuGUI();
+							JOptionPane.showMessageDialog(null, "Mayor limit reached");
 						}
-					} else {
-						JOptionPane.showMessageDialog(null, "Mayor limit reached");
+						break;
 					}
-					break;
 				}
+				
 
 				frame.dispose();
 				OfficerMenuGUI();
@@ -328,8 +338,7 @@ public class OfficerGUI extends GUI {
 				if (position.equals(candidates.get(index).getPosition())) {
 					same = true;
 				}
-				// (3) President, (3) Vice President, (10) Senators, (10) District
-				// Representatives, (3) Governors, and (3) Mayors.
+
 				switch (position) {
 				case "President":
 					if (numPresident < 3) {

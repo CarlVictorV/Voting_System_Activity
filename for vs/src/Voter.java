@@ -19,4 +19,3 @@ public class Voter extends User {
 	}
 
 }
-//Finished prototype.

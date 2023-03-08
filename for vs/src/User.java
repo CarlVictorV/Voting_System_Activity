@@ -39,4 +39,3 @@ public class User {
 	}
 
 }
-//Finished prototype.
