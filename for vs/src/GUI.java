@@ -172,7 +172,7 @@ public class GUI extends JFrame {
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				VoterMenuGUI(index);
+				VoterGUI.VoterMenuGUI(index);
 			}
 		});
 
@@ -205,7 +205,7 @@ public class GUI extends JFrame {
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				OfficerMenuGUI();
+				OfficerGUI.OfficerMenuGUI();
 			}
 		});
 
