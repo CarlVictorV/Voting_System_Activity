@@ -1,5 +1,7 @@
 # VotingSystemActivity
 <body>
+	<h2>Releases</h2>
+<a href="https://github.com/CarlVictorV/Voting_System_Activity/releases/tag/V0.9.9">Prototype</a>
 	<h2>High-Level Specifications:</h2>
 	<ul>
 		<li>The system should have 3 types of users: Superuser, Officer, and Voter.</li>
