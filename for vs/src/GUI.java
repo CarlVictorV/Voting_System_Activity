@@ -1,4 +1,29 @@
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+
 public class GUI extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public static JFrame frame;
 	public static JLabel userLabel;
 	public static JLabel passwordLabel;
@@ -8,7 +33,14 @@ public class GUI extends JFrame {
 	public static JButton cancelButton;
 	public static JLabel success;
 	public static JLabel label;
-	
+
+	protected static ArrayList<User> users;
+	protected static ArrayList<Candidates> candidates;
+
+	public GUI(ArrayList<User> users, ArrayList<Candidates> candidates) {
+		GUI.users = users;
+		GUI.candidates = candidates;
+	}
 
 	public static void LoginGUI() {
 		frame = new JFrame("Login Form");
@@ -34,16 +66,15 @@ public class GUI extends JFrame {
 				for (int i = 0; i < users.size(); i++) {
 					if (users.get(i).getUserName().equals(username) && users.get(i).getPassword().equals(password)) {
 
-						// Dont check the username check the instance of the object
 						if (users.get(i) instanceof Superuser) {
 							frame.dispose();
-							SuperUserMenuGUI();
+							SuperGUI.SuperUserMenuGUI();
 						} else if (users.get(i) instanceof Officer) {
 							frame.dispose();
-							OfficerMenuGUI();
+							OfficerGUI.OfficerMenuGUI();
 						} else if (users.get(i) instanceof Voter) {
 							frame.dispose();
-							VoterMenuGUI(i);
+							VoterGUI.VoterMenuGUI(i);
 						}
 
 						valid = true;
@@ -76,7 +107,6 @@ public class GUI extends JFrame {
 		frame.setVisible(true);
 	}
 
-
 	public static void voteSummaryGUI(int index) {// This is the last GUI to be added
 		frame = new JFrame("Vote Summary");
 		frame.setSize(300, 150);
@@ -103,11 +133,11 @@ public class GUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
 				if (index > 0) {
-					VoterMenuGUI(index);
+					VoterGUI.VoterMenuGUI(index);
 				} else if (index == -1) {
-					SuperUserMenuGUI();
+					SuperGUI.SuperUserMenuGUI();
 				} else {
-					OfficerMenuGUI();
+					OfficerGUI.OfficerMenuGUI();
 				}
 
 			}
@@ -117,7 +147,6 @@ public class GUI extends JFrame {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
-
 
 	public static void DisplayCandidateGUI(int index) {
 		frame = new JFrame("Display Candidate");
@@ -152,7 +181,6 @@ public class GUI extends JFrame {
 		frame.setVisible(true);
 	}
 
-
 	public static void DisplayCandidateGUI() {
 		frame = new JFrame("Display Candidate");
 		frame.setSize(300, 150);
@@ -186,5 +214,29 @@ public class GUI extends JFrame {
 		frame.setVisible(true);
 	}
 
+	public static int numPresident = 0;
+	public static int numVicePresident = 0;
+	public static int numSenator = 0;
+	public static int numDistrictRepresentative = 0;
+	public static int numGovernor = 0;
+	public static int numMayor = 0;
+	public static int numVoterVoted = 0;
+
+	public static boolean candidateVoted() {
+		for (int i = 0; i < candidates.size(); i++) {
+			if (candidates.get(i).getVotes() > 0) {
+				return true;
+			}
+		}
+		return false;
 	}
 
+	public static boolean candidateFull() {
+		if (numPresident == 3 && numVicePresident == 3 && numSenator == 10 && numDistrictRepresentative == 10
+				&& numGovernor == 3 && numMayor == 3) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+}

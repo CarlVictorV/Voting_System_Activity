@@ -1,6 +1,27 @@
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
 public class OfficerGUI extends GUI {
 
-    public static void OfficerMenuGUI() {
+	public OfficerGUI(ArrayList<User> users, ArrayList<Candidates> candidates) {
+		super(users, candidates);
+	}
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public static void OfficerMenuGUI() {
 		frame = new JFrame("Officer Menu");
 		frame.setSize(300, 150);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -223,8 +244,7 @@ public class OfficerGUI extends GUI {
 		frame.setVisible(true);
 	}
 
-	public static void candidateEditGUI()
-	{
+	public static void candidateEditGUI() {
 		frame = new JFrame("Edit Candidates");
 		frame.setSize(300, 150);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
