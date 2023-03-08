@@ -196,7 +196,7 @@ public class OfficerGUI extends GUI {
 						}
 						break;
 					case "Governor":
-						if (numGovernor != 1) {
+						if (numGovernor != 3) {
 							int reply = JOptionPane.showConfirmDialog(null, "Name: " + name + " Position: " + position,
 									"Add Candidate?", JOptionPane.YES_NO_OPTION);
 
@@ -213,7 +213,7 @@ public class OfficerGUI extends GUI {
 						break;
 
 					case "Mayor":
-						if (numMayor != 1) {
+						if (numMayor != 3) {
 							int reply = JOptionPane.showConfirmDialog(null, "Name: " + name + " Position: " + position,
 									"Add Candidate?", JOptionPane.YES_NO_OPTION);
 
@@ -323,11 +323,10 @@ public class OfficerGUI extends GUI {
 			public void actionPerformed(ActionEvent e) {
 				String name = nameText.getText();
 				String position = (String) positionList.getSelectedItem();
-				boolean valid = false; 
+				boolean valid = false;
 				boolean same = false;
 				boolean full = false;
 				boolean nameValid = false;
-
 
 				for (int i = 0; i < positions.length; i++) {
 					if (position.equals(positions[i])) {
