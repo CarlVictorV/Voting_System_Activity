@@ -12,7 +12,7 @@ public class Main {
 	public static Scanner input = new Scanner(System.in); 
 	
 	public static void main(String[] args) {
-
+		users.add(new Superuser("Superuser", "a", "a"));
 		GUI loginGUI = new GUI(users,candidates);
 		loginGUI.setVisible(true);
 
