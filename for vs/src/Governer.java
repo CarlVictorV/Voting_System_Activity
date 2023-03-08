@@ -1,4 +1,3 @@
-
 public class Governer extends Candidates {
 
 	public Governer(String name, String position) {
@@ -6,8 +5,7 @@ public class Governer extends Candidates {
 	}
 
 	public Governer(String role, String name, int i) {
-		super(name,role,i);
+		super(name, role, i);
 	}
 
 }
-//Finished prototype.

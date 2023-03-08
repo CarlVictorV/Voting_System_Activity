@@ -1,4 +1,3 @@
-
 public class VicePresident extends Candidates {
 
 	public VicePresident(String name, String position) {
@@ -6,8 +5,7 @@ public class VicePresident extends Candidates {
 	}
 
 	public VicePresident(String role, String name, int i) {
-		super(name,role,i);
+		super(name, role, i);
 	}
 
 }
-//Finished prototype.

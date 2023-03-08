@@ -1,4 +1,3 @@
-
 public class Superuser extends User {
 
 	public Superuser(String string, String string2, String string3) {
@@ -6,4 +5,3 @@ public class Superuser extends User {
 	}
 
 }
-//Finished prototype.
