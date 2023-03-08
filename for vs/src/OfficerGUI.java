@@ -123,7 +123,6 @@ public class OfficerGUI extends GUI {
 				String name = nameText.getText();
 				String position = positionList.getSelectedItem().toString();
 
-				//Make sure the name is not empty and the name isn't already in the list
 				if (name.equals("")) {
 					JOptionPane.showMessageDialog(null, "Name cannot be empty");
 				} else if (nameExists(name)) {
@@ -181,13 +180,13 @@ public class OfficerGUI extends GUI {
 						}
 						break;
 					case "District Representative":
-						if (numDistrictRep != 10) {
+						if (numDistrictRepresentative != 10) {
 							int reply = JOptionPane.showConfirmDialog(null, "Name: " + name + " Position: " + position,
 									"Add Candidate?", JOptionPane.YES_NO_OPTION);
 
 							if (reply == JOptionPane.YES_OPTION) {
-								candidates.add(new DistrictRepresentative(name, position));
-								numDistrictRep++;
+								candidates.add(new DistrictRepresentatives(name, position));
+								numDistrictRepresentative++;
 							} else {
 								frame.dispose();
 								OfficerMenuGUI();
@@ -202,7 +201,7 @@ public class OfficerGUI extends GUI {
 									"Add Candidate?", JOptionPane.YES_NO_OPTION);
 
 							if (reply == JOptionPane.YES_OPTION) {
-								candidates.add(new Governor(name, position));
+								candidates.add(new Governer(name, position));
 								numGovernor++;
 							} else {
 								frame.dispose();
@@ -231,7 +230,6 @@ public class OfficerGUI extends GUI {
 						break;
 					}
 				}
-				
 
 				frame.dispose();
 				OfficerMenuGUI();
@@ -325,9 +323,11 @@ public class OfficerGUI extends GUI {
 			public void actionPerformed(ActionEvent e) {
 				String name = nameText.getText();
 				String position = (String) positionList.getSelectedItem();
-				boolean valid = false;
+				boolean valid = false; 
 				boolean same = false;
 				boolean full = false;
+				boolean nameValid = false;
+
 
 				for (int i = 0; i < positions.length; i++) {
 					if (position.equals(positions[i])) {
@@ -384,6 +384,14 @@ public class OfficerGUI extends GUI {
 					break;
 				}
 
+				if (name.equals("")) {
+					JOptionPane.showMessageDialog(null, "Name is empty");
+				} else if (name.length() > 20) {
+					JOptionPane.showMessageDialog(null, "Name is too long");
+				} else {
+					nameValid = true;
+				}
+
 				if (valid == false) {
 					JOptionPane.showMessageDialog(null, "Position is not valid");
 				} else if (same == true) {
@@ -404,6 +412,8 @@ public class OfficerGUI extends GUI {
 					JOptionPane.showMessageDialog(null, "Position is full");
 					frame.dispose();
 					OfficerMenuGUI();
+				} else if (nameValid == false) {
+					JOptionPane.showMessageDialog(null, "Name is not valid");
 				} else {
 					int reply = JOptionPane.showConfirmDialog(null,
 							"Are you sure you want to edit the candidate's name and position?\n"
