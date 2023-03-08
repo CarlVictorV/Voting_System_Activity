@@ -14,10 +14,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 public class SuperGUI extends GUI {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public SuperGUI(ArrayList<User> users, ArrayList<Candidates> candidates) {
@@ -406,8 +402,6 @@ public class SuperGUI extends GUI {
 					if (users.get(i).getUserName().equals(username)) {
 						index = i;
 
-						// Create checker to see if the user has voted
-
 						if (users.get(index) instanceof Voter) {
 							if (((Voter) users.get(index)).isVoted()) {
 								JOptionPane.showMessageDialog(null, "User has already voted");
@@ -421,9 +415,6 @@ public class SuperGUI extends GUI {
 							SuperUserMenuGUI();
 							return;
 						}
-						// add an else if for superuser, and if the user is a superuser, don't let them
-						// remove themselves
-
 						int reply = JOptionPane.showConfirmDialog(null,
 								"Name: " + users.get(index).getName() + " Username: " + users.get(index).getUserName()
 										+ " Password: " + users.get(index).getPassword() + " Type: "
@@ -440,9 +431,6 @@ public class SuperGUI extends GUI {
 						}
 					}
 				}
-
-				// Create a message that user does not exist
-
 				JOptionPane.showMessageDialog(null, "User does not exist");
 
 				frame.dispose();
